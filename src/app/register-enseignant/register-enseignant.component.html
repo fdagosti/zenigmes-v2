@@ -1,0 +1,76 @@
+<h1 class="mb-5">Enseignants</h1>
+
+
+
+<form>
+    <div class="mb-3">
+        <label for="validationCustom01" class="form-label">First name</label>
+        <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="validationCustom02" class="form-label">Last name</label>
+        <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="validationCustom02" class="form-label">Nom d'utilisateur</label>
+        <input type="text" class="form-control" id="validationCustom02" value="ptitnain" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Confirmez le mot de passe</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+
+
+    <div class="mb-3" ngbDropdown #myDrop="ngbDropdown">
+        <button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownAnchor
+            (focus)="myDrop.open()">Pays</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem>Action - 1</button>
+            <button ngbDropdownItem>Another Action</button>
+            <button ngbDropdownItem>Something else is here</button>
+        </div>
+    </div>
+
+    <div class="mb-3" ngbDropdown #myDrop="ngbDropdown">
+        <button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownAnchor
+            (focus)="myDrop.open()">Ville</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem>Action - 1</button>
+            <button ngbDropdownItem>Another Action</button>
+            <button ngbDropdownItem>Something else is here</button>
+        </div>
+    </div>
+
+    <div class="mb-3" ngbDropdown #myDrop="ngbDropdown">
+        <button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownAnchor
+            (focus)="myDrop.open()">Etablissement</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownManual">
+            <button ngbDropdownItem>Action - 1</button>
+            <button ngbDropdownItem>Another Action</button>
+            <button ngbDropdownItem>Something else is here</button>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Soumettre</button>
+</form>
