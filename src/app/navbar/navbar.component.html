@@ -1,35 +1,41 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand"  routerLink="/">Zenigmes</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand" (click)="isMenuCollapsed = true" routerLink="/">Zenigmes</a>
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="ml-auto navbar-nav ">
-        <li class="nav-item">
-            <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-                <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()">Enseignants</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                <button ngbDropdownItem routerLink="register-enseignant">S'inscrire</button>
-                <button ngbDropdownItem routerLink="login">Se connecter</button>
-                </div>
-            </div>
-        </li>
 
-        <li class="nav-item">
-            <div class="d-inline-block" ngbDropdown #myDrop2="ngbDropdown">
-                <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownAnchor (focus)="myDrop2.open()">Eleves</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                <button ngbDropdownItem routerLink="register-eleve">S'inscrire</button>
-                <button ngbDropdownItem routerLink="login">Se connecter</button>
+    <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed" id="navbarSupportedContent">
+        <ul class="ml-auto navbar-nav ">
+            <li class="nav-item">
+                <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
+                    <button class="btn btn-light-primary mr-2" id="dropdownManual"
+                        ngbDropdownToggle>Enseignants</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                        <button (click)="isMenuCollapsed = true" ngbDropdownItem
+                            routerLink="register-enseignant">S'inscrire</button>
+                        <button (click)="isMenuCollapsed = true" ngbDropdownItem routerLink="login">Se
+                            connecter</button>
+                    </div>
                 </div>
-            </div>
-        </li>
-        
-        <li class="nav-item">
-            <a class="nav-link"  routerLink="contact">Contact<span class="sr-only">(current)</span></a>
-        </li>
-        
-      </ul>
+            </li>
+
+            <li class="nav-item">
+                <div class="d-inline-block" ngbDropdown #myDrop2="ngbDropdown">
+                    <button class="btn btn-light-primary mr-2" id="dropdownManual" ngbDropdownToggle>Eleves</button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                        <button (click)="isMenuCollapsed = true" ngbDropdownItem
+                            routerLink="register-eleve">S'inscrire</button>
+                        <button (click)="isMenuCollapsed = true" ngbDropdownItem routerLink="login">Se
+                            connecter</button>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" (click)="isMenuCollapsed = true" routerLink="contact">Contact<span class="sr-only">(current)</span></a>
+            </li>
+
+        </ul>
     </div>
-  </nav>
+</nav>
