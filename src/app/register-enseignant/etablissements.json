@@ -4,6 +4,10 @@
             "École internationale d'Atlanta (AIS)",
             "Little Da Vinci International School"
         ],
+        "Atlanta": [
+            "École internationale d'Atlanta (AIS)",
+            "Little Da Vinci International School"
+        ],
         "Austin": [
             "Austin International School"
         ],
@@ -23,12 +27,116 @@
         ],
         "Denver": [
             "École Internationale de Denver"
-        ]
+        ],
+        "Detroit": [
+            "Ecole française de Detroit"
+        ],
+        "Greenville": [
+            "École Française Bilingue"
+        ],
+        "Houston": [
+            "Lycée International de Houston",
+            "Awty International School"
+        ],
+        "Los Angeles": [
+            "Lycée International de Los Angeles LILA",
+            "International School of Orange County",
+            "Lycée Français de Los Angeles"
+        ],
+        "Miami ": [
+            "Lycée Franco‐Américain Cooper City",
+            "International Studies Charter School (ISCHS)",
+            "French American International School of Boca Raton",
+            "Ecole française internationale de Boca Raton (Le Petit Prince)"
+        ],
+        "Minneapolis": [
+            "French Academy of Minnesota"
+        ],
+        "New York": [
+            "Lyceum Kennedy French American School",
+            "École Internationale de New York(The Ecole)",
+            "United Nations International School (UNIS)",
+            "Lycée français de New‐York  (LFNY)",
+            "Lycée Franco‐Américain de New York (FASNY)",
+            " International School of Brooklyn"
+        ],
+       "New Jersey": [
+            "French American Academy"
+        ],
+        "La Nouvelle Orleans ": [
+            "Audubon Charter School",
+            "Ecole Bilingue de la Nouvelle‐Orléans",
+            "Lycée Français de la Nouvelle‐Orléans"
+        ],
+        "Palo Alto": [
+            "ÉSilicon Valley International School"
+        ],
+        "Portland": [
+            "French American International School",
+            "L'Étoile French Immersion School",
+            "International Leadership Academy"
+        ],
+        "Philadelphie": [
+            "Ecole Française Internationale de Philadelphie"
+        ],
+        "Phoenix": [
+           "International School of Arizona"
+        ],
+        "Princeton ": [
+             "École franco-américaine de Princeton"
+        ],
+        "Providence": [
+            " French American School of Rhode Island"
+        ],
+        "San Diego": [
+            "San Diego French American School (La Jolla)",
+            "Lycée Français de San Diego (LFSD)"
+        ],
+         "San Francisco": [
+            " Lycée français de San Francisco",
+            "Lycée International Franco‐Américain (LIFA)"
+        ],
+        "Santa Rosa": [
+            "Santa Rosa French American Charter School"
+        ],
+        "Seattle": [
+            "French Immersion School of Washington,
+            "Ecole franco‐américaine du Puget Sound"
+            "Les Lilas" 
+        ],
+        "Sunnyvale": [
+            "French American School of Silicon Valley"
+        ],
+        "Tampa ": [
+            "The French American School of Tampa Bay (FASTB)"
+        ],
+        "Washington": [
+            "Rochambeau"
+      ],
+        "autre"
+      ]
     },
     "CANADA": {
+        "Calgary": [
+            "Lycée international de Calgary"
+        ],
         "Montreal": [
             "Collège international Marie-de-France",
-            "collège Stanislas"
-        ]
+            "Collège Stanislas"
+        ],
+        "Ottawa": [
+            "Lycée Claudel"
+             ],
+        "Quebec": [
+            "Collège Stanislas"
+        ],
+        "Toronto": [
+            "Lycée français de Toronto LFT",
+            "Toronto French School TSF"
+        ],
+        "Vancouver": [
+            "Cousteau: Ecole Française Internationale de Vancouver"
+        ],
+        "Autre": [
     }
 }
