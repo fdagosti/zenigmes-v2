@@ -4,74 +4,78 @@
     <div class="row g-3">
         <div class="col mb-3">
             <label for="validationCustom01" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="validationCustom01" placeholder="Duchaussoy" required>
+            <input type="text" class="form-control" id="validationCustom01" formControlName="nom" required>
         </div>
         <div class="col mb-3">
             <label for="validationCustom02" class="form-label">Prénom</label>
-            <input type="text" class="form-control" id="validationCustom02" placeholder="Roger" required>
+            <input type="text" class="form-control" id="validationCustom02" formControlName="prenom" required>
         </div>
     </div>
 
     <div class="row g-3">
         <div class="col mb-3">
             <label for="exampleInputEmail1" class="form-label">Adresse Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                formControlName="email">
+            <div *ngIf="email?.touched && email?.invalid" class="text-danger">
+                <div>email pas bon</div>
+            </div>
         </div>
-    
+
         <div class="col mb-3">
             <label for="validationCustom02" class="form-label">Nom d'utilisateur</label>
-            <input type="text" class="form-control" id="validationCustom02" placeholder="furieux-dragon" required>
+            <input type="text" class="form-control" id="validationCustom02" formControlName="username" required>
         </div>
     </div>
-    
 
-    <div class="row g-3">
+
+    <div class="row g-3" formGroupName="passwordGroup">
         <div class="col mb-3">
             <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
         </div>
 
         <div class="col mb-3">
             <label for="exampleInputPassword1" class="form-label">Confirmez le mot de passe</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="confirmPassword">
         </div>
     </div>
 
-    <div class="row g-3">
-        <div class="col-2">
-            <div class="mb-3" ngbDropdown #myDrop="ngbDropdown">
-                <button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownToggle>Pays</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                    <button ngbDropdownItem>Pakistan</button>
-                    <button ngbDropdownItem>Ethiopie</button>
-                    <button ngbDropdownItem>Hawai</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="mb-3" ngbDropdown #myDrop2="ngbDropdown">
-                <button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownToggle>Ville</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                    <button ngbDropdownItem>Chatillon</button>
-                    <button ngbDropdownItem>Noisiel</button>
-                    <button ngbDropdownItem>Saulnes</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-2">
-            <div class="mb-3" ngbDropdown #myDrop3="ngbDropdown">
-                <button class="btn btn-success mr-2" id="dropdownManual" ngbDropdownToggle>Etablissement</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                    <button ngbDropdownItem>Louis le grand</button>
-                    <button ngbDropdownItem>Henri IV</button>
-                    <button ngbDropdownItem>Lafontaine</button>
-                </div>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="formGroupExampleInput">Etablissement</label>
 
+        <div class="row g-3">
+
+            <div class="form-group col-md-4">
+                <label for="pays">Pays</label>
+                <select class="custom-select my-1 mr-sm-2" formControlName="country" id="pays">
+                    <option *ngFor="let item of getCountries();" [value]="item">{{item}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="ville">Ville</label>
+                <select class="custom-select my-1 mr-sm-2" formControlName="town" id="ville">
+                    <option selected>Choose...</option>
+                    <option *ngFor="let item of getVilles(getSelectedCountry());" [value]="item">{{item}}</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="etablissement">Etablissement</label>
+                <select class="custom-select my-1 mr-sm-2" formControlName="etablissement" id="etablissement">
+                    <option selected>Choose...</option>
+                    <option *ngFor="let item of getEtablissements(getSelectedCountry(),getSelectedVille());" [value]="item">{{item}}</option>
+                </select>
+            </div>
+
+        </div>
     </div>
+
 
 
 
     <button type="submit" class="btn btn-primary">Soumettre</button>
 </form>
+
+<p>le formulaire est il correct ? {{ formDetails.status }}</p>

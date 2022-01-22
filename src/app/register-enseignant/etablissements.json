@@ -1,0 +1,34 @@
+{
+    "USA": {
+        "Atlanta": [
+            "École internationale d'Atlanta (AIS)",
+            "Little Da Vinci International School"
+        ],
+        "Austin": [
+            "Austin International School"
+        ],
+        "Berkeley": [
+            "École Bilingue de Berkeley"
+        ],
+        "Boston/Cambridge": [
+            "Lycée international de Boston ISB",
+            "French Education Greater Boston (EFGB)"
+        ],
+        "Chicago": [
+            "École Franco Américaine de Chicago EFAC",
+            "Lycée International de Los Angeles LFC"
+        ],
+        "Dallas": [
+            "Dallas International School"
+        ],
+        "Denver": [
+            "École Internationale de Denver"
+        ]
+    },
+    "CANADA": {
+        "Montreal": [
+            "Collège international Marie-de-France",
+            "collège Stanislas"
+        ]
+    }
+}
