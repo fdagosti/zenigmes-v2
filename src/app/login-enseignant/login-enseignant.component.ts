@@ -38,6 +38,10 @@ export class LoginEnseignantComponent implements OnInit {
     "auth/wrong-password": "Mauvais mot de passe"
   }
 
+  get email() {
+    return this.formDetails.get("email");
+  }
+
   getError(error: any){
     if (error.code){
          return this.ERROR_MSG[error.code]
