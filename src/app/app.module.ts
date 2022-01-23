@@ -25,6 +25,7 @@ import { LoginEnseignantComponent } from './login-enseignant/login-enseignant.co
 import { LoginEleveComponent } from './login-eleve/login-eleve.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { LoginComponent } from './login/login.component';
     LoginEnseignantComponent,
     LoginEleveComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

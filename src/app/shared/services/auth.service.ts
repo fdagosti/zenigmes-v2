@@ -71,7 +71,7 @@ export class AuthService {
 
     const user = credential.user;
 
-    this.updateProfile(credential, nom, prenom, username, role, pays, ville, etablissement);
+    this.updateProfile(credential, nom, prenom, username, role, pays, ville, etablissement).then(() => this.router.navigate(["/"]));;
 
 
   }
@@ -98,7 +98,6 @@ export class AuthService {
   }
 
   async resetPassword(email: string): Promise<any> {
-
     // sends reset password email
     await sendPasswordResetEmail(this.auth, email);
   }

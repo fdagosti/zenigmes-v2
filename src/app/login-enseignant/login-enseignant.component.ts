@@ -20,7 +20,7 @@ export class LoginEnseignantComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private auth: AuthService) { }
 
-  
+
   ngOnInit(): void {
   }
 
@@ -33,7 +33,7 @@ export class LoginEnseignantComponent implements OnInit {
       (error: any) => this.error = error);
   }
 
-  ERROR_MSG:any = {
+  ERROR_MSG: any = {
     "auth/user-not-found": "Utilisateur non trouvé",
     "auth/wrong-password": "Mauvais mot de passe"
   }
@@ -42,10 +42,10 @@ export class LoginEnseignantComponent implements OnInit {
     return this.formDetails.get("email");
   }
 
-  getError(error: any){
-    if (error.code){
-         return this.ERROR_MSG[error.code]
-    }else {
+  getError(error: any) {
+    if (error.code) {
+      return this.ERROR_MSG[error.code]
+    } else {
       return error
     }
   }
