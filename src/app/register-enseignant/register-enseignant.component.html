@@ -1,5 +1,14 @@
 <h1 class="mb-5">Enseignants</h1>
 
+<div class="alert alert-danger" role="alert" *ngIf="error">
+    <div *ngIf="error.code == 'auth/email-already-in-use'; else elseBlock">
+        L'EMail est déja utilisé
+    </div>
+    <ng-template #elseBlock>{{error}}</ng-template>
+    
+  </div>
+
+
 <form [formGroup]="formDetails" (ngSubmit)="onSubmit()">
     <div class="row g-3">
         <div class="col mb-3">
@@ -33,16 +42,21 @@
         <div class="col mb-3">
             <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+            <div *ngIf="pwdGroup?.touched && pwdGroup?.invalid" class="text-danger">
+                <div *ngIf="pwdGroup?.errors">mot de passe ne correspondent pas</div>
+                <div *ngIf="!pwdGroup?.errors">Minimum 6 caractères</div>
+            </div>
         </div>
 
         <div class="col mb-3">
             <label for="exampleInputPassword1" class="form-label">Confirmez le mot de passe</label>
             <input type="password" class="form-control" id="exampleInputPassword1" formControlName="confirmPassword">
         </div>
+        
     </div>
 
     <div class="form-group">
-        <label for="formGroupExampleInput">Etablissement</label>
+        <label for="formGroupExampleInput">Selection de l'établissement scolaire</label>
 
         <div class="row g-3">
 
@@ -71,11 +85,5 @@
 
         </div>
     </div>
-
-
-
-
-    <button type="submit" class="btn btn-primary">Soumettre</button>
+    <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'" >Soumettre</button>
 </form>
-
-<p>le formulaire est il correct ? {{ formDetails.status }}</p>

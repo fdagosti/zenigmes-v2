@@ -4,10 +4,6 @@
             "École internationale d'Atlanta (AIS)",
             "Little Da Vinci International School"
         ],
-        "Atlanta": [
-            "École internationale d'Atlanta (AIS)",
-            "Little Da Vinci International School"
-        ],
         "Austin": [
             "Austin International School"
         ],
@@ -60,7 +56,7 @@
             "Lycée Franco‐Américain de New York (FASNY)",
             " International School of Brooklyn"
         ],
-       "New Jersey": [
+        "New Jersey": [
             "French American Academy"
         ],
         "La Nouvelle Orleans ": [
@@ -80,10 +76,10 @@
             "Ecole Française Internationale de Philadelphie"
         ],
         "Phoenix": [
-           "International School of Arizona"
+            "International School of Arizona"
         ],
         "Princeton ": [
-             "École franco-américaine de Princeton"
+            "École franco-américaine de Princeton"
         ],
         "Providence": [
             " French American School of Rhode Island"
@@ -92,7 +88,7 @@
             "San Diego French American School (La Jolla)",
             "Lycée Français de San Diego (LFSD)"
         ],
-         "San Francisco": [
+        "San Francisco": [
             " Lycée français de San Francisco",
             "Lycée International Franco‐Américain (LIFA)"
         ],
@@ -101,8 +97,8 @@
         ],
         "Seattle": [
             "French Immersion School of Washington",
-            "Ecole franco‐américaine du Puget Sound"
-            "Les Lilas" 
+            "Ecole franco‐américaine du Puget Sound",
+            "Les Lilas"
         ],
         "Sunnyvale": [
             "French American School of Silicon Valley"
@@ -112,9 +108,7 @@
         ],
         "Washington": [
             "Rochambeau"
-      ],
-        "autre"
-      
+        ]
     },
     "CANADA": {
         "Calgary": [
@@ -126,7 +120,7 @@
         ],
         "Ottawa": [
             "Lycée Claudel"
-             ],
+        ],
         "Quebec": [
             "Collège Stanislas"
         ],
@@ -136,7 +130,6 @@
         ],
         "Vancouver": [
             "Cousteau: Ecole Française Internationale de Vancouver"
-        ],
-        "Autre": [
-    ]
+        ]
+    }
 }
