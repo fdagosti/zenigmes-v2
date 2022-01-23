@@ -26,6 +26,8 @@ import { LoginEleveComponent } from './login-eleve/login-eleve.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     LoginEleveComponent,
     ContactComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

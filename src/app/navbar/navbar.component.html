@@ -13,7 +13,7 @@
                         ngbDropdownToggle>{{user.username}}</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownManual">
                         <h5 ngbDropdownItem style="pointer-events: none;">{{user.prenom}} {{user.nom}}</h5>
-                        <button (click)="isMenuCollapsed = true" ngbDropdownItem>Votre classe</button>
+                        <button (click)="isMenuCollapsed = true" routerLink="profile" ngbDropdownItem>Votre profil</button>
                         <button (click)="auth.logout()" ngbDropdownItem routerLink="/">Se deconnecter</button>
                     </div>
                 </div>

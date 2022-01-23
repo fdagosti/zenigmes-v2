@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginEleveComponent } from './login-eleve/login-eleve.component';
-import { LoginEnseignantComponent } from './login-enseignant/login-enseignant.component';
-import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterEleveComponent } from './register-eleve/register-eleve.component';
 import { RegisterEnseignantComponent } from './register-enseignant/register-enseignant.component';
 
 const routes: Routes = [
+  { path: 'profile', component: ProfileComponent },
   { path: 'register-enseignant', component: RegisterEnseignantComponent },
   { path: 'register-eleve', component: RegisterEleveComponent },
   { path: 'login-eleve', component: LoginEleveComponent },
