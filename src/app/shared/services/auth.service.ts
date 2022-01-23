@@ -32,7 +32,7 @@ export class AuthService {
           const uid = userData.uid;
 
           return docData(doc(this.afs, 'profiles', uid)).pipe(
-            map((profileData) => { return { prenom: "John", nom: "Doe", ...profileData, email, displayName, uid } })
+            map((profileData) => { return { username: "l'inconnu du nord", prenom: "John", nom: "Doe", ...profileData, email, displayName, uid } })
           ) as Observable<any>
         }
         return of(null);

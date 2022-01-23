@@ -1,23 +1,19 @@
-<h1 class="mb-5">Enseignants</h1>
-
-<div class="alert alert-danger" role="alert" *ngIf="error">
-    {{getError(error)}}
-    
-  </div>
-
-  <form [formGroup]="formDetails" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Adresse Email</label>
-      <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div *ngIf="email?.touched && email?.invalid" class="text-danger">
-        <div>email pas bon</div>
-    </div>
+<form class="px-4 py-3" [formGroup]="formDetails" (ngSubmit)="onSubmit()">
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+        {{getError(error)}}
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-      <input type="password" formControlName="password" class="form-control" id="exampleInputPassword1">
+        <label for="exampleInputEmail1" class="form-label">Adresse Email</label>
+        <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1"
+            aria-describedby="emailHelp">
+        <div *ngIf="email?.touched && email?.invalid" class="text-danger">
+            <div>email pas bon</div>
+        </div>
     </div>
-    
-    <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'" >Submit</button>
-  </form>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
+        <input type="password" formControlName="password" class="form-control" id="exampleInputPassword1">
+    </div>
 
+    <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'">Soumettre</button>
+</form>
