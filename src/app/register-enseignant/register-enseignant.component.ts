@@ -45,6 +45,8 @@ export class RegisterEnseignantComponent implements OnInit {
 
   onSubmit(): void {
     console.log("submitting form ", this.formDetails)
+    const nom = this.formDetails.get("nom")?.value;
+    const prenom = this.formDetails.get("prenom")?.value;
     const email = this.formDetails.get("email")?.value;
     const password = this.formDetails.get("passwordGroup")?.get("password")?.value;
     const username = this.formDetails.get("username")?.value;
@@ -53,7 +55,7 @@ export class RegisterEnseignantComponent implements OnInit {
     const ville = this.formDetails.get("town")?.value;
     const etablissement = this.formDetails.get("etablissement")?.value;
 
-    this.auth.register(email, password, username, role, pays, ville, etablissement).then(
+    this.auth.register(nom, prenom, email, password, username, role, pays, ville, etablissement).then(
       success => { },
       (error: any) => this.error = error)
   }

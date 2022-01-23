@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  Auth, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, user, User, UserCredential
+  Auth, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, user, User, UserCredential
 } from '@angular/fire/auth';
-import { collection, Firestore, getDocs } from '@angular/fire/firestore';
+import { collection, docData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { doc, query, setDoc, where } from 'firebase/firestore';
-import { lastValueFrom, Observable, take } from 'rxjs';
+import { doc, DocumentData } from 'firebase/firestore';
+import { lastValueFrom, map, observable, Observable, of, switchMap, take, tap } from 'rxjs';
 
 
 
@@ -16,8 +16,7 @@ import { lastValueFrom, Observable, take } from 'rxjs';
 })
 export class AuthService {
 
-  userData: any; // Save logged in user data
-  user$: Observable<User | null>;
+  private user$: Observable<User | null>;
 
   constructor(
     public afs: Firestore,   // Inject Firestore service
@@ -25,20 +24,37 @@ export class AuthService {
     public router: Router,
   ) {
 
-    this.user$ = user(auth);
+    this.user$ = user(auth).pipe(
+      switchMap((userData: User | null) => {
+        if (userData) {
+          const email = userData.email;
+          const displayName = userData.displayName;
+          const uid = userData.uid;
 
+          return docData(doc(this.afs, 'profiles', uid)).pipe(
+            map((profileData) => { return { prenom: "John", nom: "Doe", ...profileData, email, displayName, uid } })
+          ) as Observable<any>
+        }
+        return of(null);
+      }
+      ),
+    );
   }
 
-  async getUser(): Promise<User | null> {
-    return await lastValueFrom(this.user$.pipe(take(1)));
+  getUser(): Observable<any> {
+    return this.user$;
   }
 
   async login(email: string, password: string)
     : Promise<any> {
-    return await signInWithEmailAndPassword(this.auth, email, password);
+    return await signInWithEmailAndPassword(this.auth, email, password).then(() => this.router.navigate(["/"]));
   }
 
-  async register(email: string, password: string, username: string, role: string, pays: string, ville: string, etablissement: string)
+  async logout() {
+    return await signOut(this.auth).then(() => this.router.navigate(["/"]));
+  }
+
+  async register(nom: string, prenom: string, email: string, password: string, username: string, role: string, pays: string, ville: string, etablissement: string)
     : Promise<void> {
 
 
@@ -53,7 +69,9 @@ export class AuthService {
       password
     );
 
-    this.updateProfile(credential, username, role, pays, ville, etablissement);
+    const user = credential.user;
+
+    this.updateProfile(credential, nom, prenom, username, role, pays, ville, etablissement);
 
 
   }
@@ -66,14 +84,16 @@ export class AuthService {
     return querySnapshot.size > 0;
   }
 
-  async updateProfile(credential: UserCredential, username: string, role: string, pays: string, ville: string, etablissement: string) {
+  async updateProfile(credential: UserCredential, nom: string, prenom: string, username: string, role: string, pays: string, ville: string, etablissement: string) {
     await setDoc(doc(this.afs, "profiles", credential.user.uid), {
+      nom,
+      prenom,
       username,
       pays,
       ville,
       etablissement,
-      role 
-    }); 
+      role
+    });
 
   }
 
