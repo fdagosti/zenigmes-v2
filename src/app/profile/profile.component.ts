@@ -10,6 +10,7 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class ProfileComponent implements OnInit {
 
+
   constructor(public auth: AuthService) { }
 
   user: any;
@@ -25,6 +26,8 @@ export class ProfileComponent implements OnInit {
     const emailHash = Md5.hashStr(email.trim().toLowerCase());
     return `https://www.gravatar.com/avatar/${emailHash}`
   }
+
+  
 
 
 

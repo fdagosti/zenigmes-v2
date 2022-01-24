@@ -1,0 +1,40 @@
+<button class="btn btn-success" (click)="open(content, merci)">Créer une nouvelle classe</button>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Créer une nouvelle classe</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="formDetails">
+        <div class="form-group">
+          <label for="email">Nom de la classe</label>
+          <div class="input-group">
+            <input formControlName="className" id="className" class="form-control" name="className" type="text" >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button [disabled]="!formDetails.valid" type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Créer la classe</button>
+    </div>
+  </ng-template>
+
+
+
+  <ng-template #merci let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Classe Créée</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Une nouvelle classe a été créée, et un code de partage a été automatiquement assigné</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">fermer</button>
+    </div>
+  </ng-template>

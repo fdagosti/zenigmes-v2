@@ -16,7 +16,7 @@ function passwordMatchValidator(g: FormGroup) {
 })
 export class ProfileDetailsComponent implements OnInit {
 
-  sucess = false
+  success = false
 
   user$: Observable<any>
 
@@ -66,7 +66,7 @@ export class ProfileDetailsComponent implements OnInit {
     if (this.formDetails.get("etablissement")?.value != this.dbUSer.etablissement) changeObject.etablissement = this.formDetails.get("etablissement")?.value
 
     if (Object.keys(changeObject).length >0){
-      this.auth.updateUser(changeObject, this.dbUSer.uid).then(() => {this.sucess = true})
+      this.auth.updateUser(changeObject, this.dbUSer.uid).then(() => {this.success = true})
     }
   }
 
@@ -95,6 +95,10 @@ export class ProfileDetailsComponent implements OnInit {
   getSelectedVille(): any {
     let result = this.formDetails.get("town")?.value
     return result
+  }
+
+  close(alert: any){
+    console.log("closing alerts ",alert)
   }
 
 }

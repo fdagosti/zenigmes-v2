@@ -1,6 +1,8 @@
-<div class="alert alert-success" *ngIf="sucess" role="alert">
+
+
+<ngb-alert type="success" *ngIf="success" (closed)="success=false" >
     les Modifications ont bien été apportés
-</div>
+</ngb-alert>
 
 <form [formGroup]="formDetails" (ngSubmit)="onSubmit()" *ngIf="user$ |async as user">
     <div class="form-group">

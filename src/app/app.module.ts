@@ -30,6 +30,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClassDetailsComponent } from './class-details/class-details.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
+import { ClassCreationFormComponent } from './class-creation-form/class-creation-form.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { ProfileDetailsComponent } from './profile-details/profile-details.compo
     ForgotPasswordComponent,
     ProfileComponent,
     ClassDetailsComponent,
-    ProfileDetailsComponent
+    ProfileDetailsComponent,
+    ClassCreationFormComponent
   ],
   imports: [
     BrowserModule,
