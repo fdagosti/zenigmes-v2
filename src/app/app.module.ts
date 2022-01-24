@@ -28,6 +28,8 @@ import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClassDetailsComponent } from './class-details/class-details.component';
+import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ContactComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ClassDetailsComponent,
+    ProfileDetailsComponent
   ],
   imports: [
     BrowserModule,

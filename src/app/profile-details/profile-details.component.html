@@ -1,58 +1,32 @@
-<h1 class="mb-5">Enseignants</h1>
-
-<div class="alert alert-danger" role="alert" *ngIf="error">
-    <div *ngIf="error.code == 'auth/email-already-in-use'; else elseBlock">
-        L'EMail est déja utilisé
-    </div>
-    <ng-template #elseBlock>{{error}}</ng-template>
+<form [formGroup]="formDetails"  *ngIf="user$ |async as user">
     
-  </div>
-
-
-<form [formGroup]="formDetails" (ngSubmit)="onSubmit()">
-    <div class="row g-3">
-        <div class="col mb-3">
-            <label for="validationCustom01" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="validationCustom01" formControlName="nom" required>
-        </div>
-        <div class="col mb-3">
-            <label for="validationCustom02" class="form-label">Prénom</label>
-            <input type="text" class="form-control" id="validationCustom02" formControlName="prenom" required>
-        </div>
+    <div class="row mt-2">
+        <div class="col-md-6">
+            <label class="labels">Nom</label>
+            <input type="text" class="form-control" placeholder="nom" formControlName="nom" value=""></div>
+        <div class="col-md-6"><label class="labels">Prénom</label><input type="text" formControlName="prenom" class="form-control" value=""
+                placeholder="prenom"></div>
+    </div>
+    
+    <div class="row mt-3">
+        <div class="col-md-6"><label class="labels">Nom d'utilisateur</label><input type="text" class="form-control"
+                placeholder="enter phone number" formControlName="username" value=""></div>
+        <div class="col-md-6"><label class="labels">Email ID</label><input type="text" class="form-control"
+                placeholder="enter email id" formControlName="email" value=""></div>
     </div>
 
-    <div class="row g-3">
-        <div class="col mb-3">
-            <label for="exampleInputEmail1" class="form-label">Adresse Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                formControlName="email">
-            <div *ngIf="email?.touched && email?.invalid" class="text-danger">
-                <div>email pas bon</div>
-            </div>
-        </div>
-
-        <div class="col mb-3">
-            <label for="validationCustom02" class="form-label">Nom d'utilisateur</label>
-            <input type="text" class="form-control" id="validationCustom02" formControlName="username" required>
-        </div>
-    </div>
-
-
-    <div class="row g-3" formGroupName="passwordGroup">
+    <div class="row mt-3" formGroupName="passwordGroup">
         <div class="col mb-3">
             <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
             <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
-            <div *ngIf="pwdGroup?.touched && pwdGroup?.invalid" class="text-danger">
-                <div *ngIf="pwdGroup?.errors">mot de passe ne correspondent pas</div>
-                <div *ngIf="!pwdGroup?.errors">Minimum 6 caractères</div>
-            </div>
+
         </div>
 
         <div class="col mb-3">
             <label for="exampleInputPassword1" class="form-label">Confirmez le mot de passe</label>
             <input type="password" class="form-control" id="exampleInputPassword1" formControlName="confirmPassword">
         </div>
-        
+
     </div>
 
     <div class="form-group">
@@ -86,5 +60,8 @@
 
         </div>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'" >Soumettre</button>
+
+    <div class="mt-5 text-center"><button disabled class="btn btn-primary profile-button" type="button">Sauvegarder les
+            changements</button></div>
+
 </form>
