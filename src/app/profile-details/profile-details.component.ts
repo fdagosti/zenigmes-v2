@@ -16,7 +16,11 @@ function passwordMatchValidator(g: FormGroup) {
 })
 export class ProfileDetailsComponent implements OnInit {
 
+  sucess = false
+
   user$: Observable<any>
+
+  dbUSer: any
 
   formDetails = this.fb.group(
     {
@@ -46,11 +50,30 @@ export class ProfileDetailsComponent implements OnInit {
         this.formDetails.get("country")?.setValue(userData.pays)
         this.formDetails.get("town")?.setValue(userData.ville)
         this.formDetails.get("etablissement")?.setValue(userData.etablissement)
+        this.dbUSer = userData;
       }));
   }
 
   ngOnInit(): void {
 
+  }
+
+  onSubmit(){
+    console.log("submitting form ", this.formDetails)
+    console.log("dbuser ", this.dbUSer)
+
+    let changeObject:any = {}
+    if (this.formDetails.get("nom")?.value != this.dbUSer.nom) changeObject.nom = this.formDetails.get("nom")?.value
+    if (this.formDetails.get("prenom")?.value != this.dbUSer.prenom) changeObject.prenom = this.formDetails.get("prenom")?.value
+    if (this.formDetails.get("country")?.value != this.dbUSer.pays) changeObject.pays = this.formDetails.get("country")?.value
+    if (this.formDetails.get("town")?.value != this.dbUSer.ville) changeObject.ville = this.formDetails.get("town")?.value
+    if (this.formDetails.get("etablissement")?.value != this.dbUSer.etablissement) changeObject.etablissement = this.formDetails.get("etablissement")?.value
+
+    console.log("changeObject = ",changeObject)
+
+    if (Object.keys(changeObject).length >0){
+      this.auth.updateUser(changeObject, this.dbUSer.uid).then(() => {this.sucess = true})
+    }
   }
 
   ETABLISSEMENTS: any = data;

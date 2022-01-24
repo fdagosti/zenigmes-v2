@@ -72,8 +72,10 @@ export class AuthService {
     const user = credential.user;
 
     this.updateProfile(credential, nom, prenom, username, role, pays, ville, etablissement).then(() => this.router.navigate(["/"]));;
+  }
 
-
+  async updateUser(changeObject:any, uid: string){
+    await setDoc(doc(this.afs, "profiles", uid), changeObject, {merge: true});
   }
 
   async usernameAlreadyExist(username: string) {

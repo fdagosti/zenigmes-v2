@@ -1,32 +1,40 @@
-<form [formGroup]="formDetails"  *ngIf="user$ |async as user">
-    
+<div class="alert alert-success" *ngIf="sucess" role="alert">
+    les Modifications ont bien été apportés
+</div>
+
+<form [formGroup]="formDetails" (ngSubmit)="onSubmit()" *ngIf="user$ |async as user">
+
     <div class="row mt-2">
         <div class="col-md-6">
             <label class="labels">Nom</label>
-            <input type="text" class="form-control" placeholder="nom" formControlName="nom" value=""></div>
-        <div class="col-md-6"><label class="labels">Prénom</label><input type="text" formControlName="prenom" class="form-control" value=""
-                placeholder="prenom"></div>
+            <input type="text" class="form-control" placeholder="nom" formControlName="nom" value="">
+        </div>
+        <div class="col-md-6">
+            <label class="labels">Prénom</label>
+            <input type="text" formControlName="prenom" class="form-control" value="" placeholder="prenom">
+        </div>
     </div>
-    
+
     <div class="row mt-3">
-        <div class="col-md-6"><label class="labels">Nom d'utilisateur</label><input type="text" class="form-control"
-                placeholder="enter phone number" formControlName="username" value=""></div>
-        <div class="col-md-6"><label class="labels">Email ID</label><input type="text" class="form-control"
-                placeholder="enter email id" formControlName="email" value=""></div>
+        <div class="col-md-6">
+            <label class="labels">Nom d'utilisateur</label>
+            <input type="text" class="form-control" disabled placeholder="enter phone number" formControlName="username" value=""></div>
+        <div class="col-md-6">
+            <label class="labels">Email ID</label>
+            <input disabled type="text" class="form-control" placeholder="enter email id" formControlName="email" value="">
+        </div>
     </div>
 
     <div class="row mt-3" formGroupName="passwordGroup">
         <div class="col mb-3">
-            <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
-
+            <label for="password" class="form-label">Mot de passe</label>
+            <input disabled type="password" class="form-control" id="password" formControlName="password">
         </div>
 
         <div class="col mb-3">
-            <label for="exampleInputPassword1" class="form-label">Confirmez le mot de passe</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" formControlName="confirmPassword">
+            <label for="password-confirm" class="form-label">Confirmez le mot de passe</label>
+            <input disabled type="password" class="form-control" id="password-confirm" formControlName="confirmPassword">
         </div>
-
     </div>
 
     <div class="form-group">
@@ -37,7 +45,7 @@
             <div class="form-group col-md-4">
                 <label for="pays">Pays</label>
                 <select class="custom-select my-1 mr-sm-2" formControlName="country" id="pays">
-                    <option selected>Choose...</option>
+                    <option disabled selected>Choose...</option>
                     <option *ngFor="let item of getCountries();" [value]="item">{{item}}</option>
                 </select>
             </div>
@@ -54,14 +62,16 @@
                 <label for="etablissement">Etablissement</label>
                 <select class="custom-select my-1 mr-sm-2" formControlName="etablissement" id="etablissement">
                     <option selected>Choose...</option>
-                    <option *ngFor="let item of getEtablissements(getSelectedCountry(),getSelectedVille());" [value]="item">{{item}}</option>
+                    <option *ngFor="let item of getEtablissements(getSelectedCountry(),getSelectedVille());"
+                        [value]="item">{{item}}</option>
                 </select>
             </div>
 
         </div>
     </div>
 
-    <div class="mt-5 text-center"><button disabled class="btn btn-primary profile-button" type="button">Sauvegarder les
-            changements</button></div>
+    <div class="mt-5 text-center">
+        <button type="submit" (click)="onSubmit()" class="btn btn-primary profile-button" type="button">Sauvegarder les changements</button>
+    </div>
 
 </form>
