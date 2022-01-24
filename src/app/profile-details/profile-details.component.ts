@@ -26,11 +26,11 @@ export class ProfileDetailsComponent implements OnInit {
     {
       nom: [""],
       prenom: [""],
-      username: [""],
-      email: ["", Validators.email],
+      username: [{value: '', disabled: true}],
+      email: [{value: '', disabled: true}, Validators.email],
       passwordGroup: this.fb.group({
-        password: ["", [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ["", Validators.required],
+        password: [{value: '', disabled: true}, [Validators.required, Validators.minLength(6)]],
+        confirmPassword: [{value: '', disabled: true}, Validators.required],
       }, { validator: passwordMatchValidator } as AbstractControlOptions),
       country: [""],
       town: [""],
@@ -42,7 +42,6 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder, public auth: AuthService) { 
     this.user$ = this.auth.getUser().pipe(
       tap(userData => {
-        console.log("USER DATA ",userData)
         this.formDetails.get("nom")?.setValue(userData.nom)
         this.formDetails.get("prenom")?.setValue(userData.prenom)
         this.formDetails.get("username")?.setValue(userData.username)
@@ -59,17 +58,12 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log("submitting form ", this.formDetails)
-    console.log("dbuser ", this.dbUSer)
-
     let changeObject:any = {}
     if (this.formDetails.get("nom")?.value != this.dbUSer.nom) changeObject.nom = this.formDetails.get("nom")?.value
     if (this.formDetails.get("prenom")?.value != this.dbUSer.prenom) changeObject.prenom = this.formDetails.get("prenom")?.value
     if (this.formDetails.get("country")?.value != this.dbUSer.pays) changeObject.pays = this.formDetails.get("country")?.value
     if (this.formDetails.get("town")?.value != this.dbUSer.ville) changeObject.ville = this.formDetails.get("town")?.value
     if (this.formDetails.get("etablissement")?.value != this.dbUSer.etablissement) changeObject.etablissement = this.formDetails.get("etablissement")?.value
-
-    console.log("changeObject = ",changeObject)
 
     if (Object.keys(changeObject).length >0){
       this.auth.updateUser(changeObject, this.dbUSer.uid).then(() => {this.sucess = true})

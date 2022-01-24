@@ -18,22 +18,22 @@
     <div class="row mt-3">
         <div class="col-md-6">
             <label class="labels">Nom d'utilisateur</label>
-            <input type="text" class="form-control" disabled placeholder="enter phone number" formControlName="username" value=""></div>
+            <input type="text" class="form-control" placeholder="enter phone number" formControlName="username" value=""></div>
         <div class="col-md-6">
             <label class="labels">Email ID</label>
-            <input disabled type="text" class="form-control" placeholder="enter email id" formControlName="email" value="">
+            <input type="text" autocomplete="email" class="form-control" placeholder="enter email id" formControlName="email" value="">
         </div>
     </div>
 
     <div class="row mt-3" formGroupName="passwordGroup">
         <div class="col mb-3">
             <label for="password" class="form-label">Mot de passe</label>
-            <input disabled type="password" class="form-control" id="password" formControlName="password">
+            <input type="password" autocomplete="new-password" class="form-control" id="password" formControlName="password">
         </div>
 
         <div class="col mb-3">
             <label for="password-confirm" class="form-label">Confirmez le mot de passe</label>
-            <input disabled type="password" class="form-control" id="password-confirm" formControlName="confirmPassword">
+            <input type="password" autocomplete="new-password" class="form-control" id="password-confirm" formControlName="confirmPassword">
         </div>
     </div>
 
