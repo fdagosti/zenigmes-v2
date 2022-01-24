@@ -30,7 +30,8 @@ export class ClassCreationFormComponent implements OnInit {
     console.log("open with content", passwordContent)
     this.modalService.open(passwordContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.modalService.open(summaryContent)
+      this.classRooms.createClasse(this.formDetails.get("className")?.value).then(() => this.modalService.open(summaryContent))
+      
     }, (reason) => {
     });
   }

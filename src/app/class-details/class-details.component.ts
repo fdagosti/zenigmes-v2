@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import { ClassesService } from '../classes.service';
 
 @Component({
   selector: 'app-class-details',
@@ -7,56 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassDetailsComponent implements OnInit {
 
+classGroups$;
 
-classGroups = [
-  {
-    teacher: "UID",
-    classId: "6ème Deux",
-    classCode: "FQDSFDQ",
-    students: [
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-    ]
-  },
-  {
-    teacher: "UID",
-    classId: "1ère 42",
-    classCode: "FQDSFDQ",
-    students: [
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-    ]
-  },
-  {
-    teacher: "UID",
-    classId: "Terminal S",
-    classCode: "FQDSFDQ",
-    students: [
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-      {uid: "FDSFDF"},
-    ]
-  },
-]
+  constructor(private classRooms: ClassesService) { 
 
-groupedArray;
-
-  constructor() { 
-    const GRP_SIZE = 2;
-    const arr = this.classGroups;
-    this.groupedArray = Array.from({ length: Math.ceil(arr.length / GRP_SIZE) }, (v, i) =>
-    arr.slice(i * GRP_SIZE, i * GRP_SIZE + GRP_SIZE));
+    this.classGroups$ = classRooms.getClassroomsObs().pipe(
+      map((arr: any) => {
+        const GRP_SIZE = 2;
+        const groupedArray = Array.from({ length: Math.ceil(arr.length / GRP_SIZE) }, (v, i) =>
+        arr.slice(i * GRP_SIZE, i * GRP_SIZE + GRP_SIZE));
+        return groupedArray 
+      })
+    )
   }
 
   ngOnInit(): void {
+  }
+
+  deleteClass(classroom:any){
+    this.classRooms.deleteClass(classroom)
   }
 
 }

@@ -41,6 +41,10 @@ export class AuthService {
     );
   }
 
+  currentUser(){
+    return this.auth.currentUser;
+  }
+
   getUser(): Observable<any> {
     return this.user$;
   }
@@ -82,7 +86,6 @@ export class AuthService {
     const profilesRef = collection(this.afs, "profiles")
     const q = query(profilesRef, where("username", "==", username));
     const querySnapshot = await getDocs(q);
-    console.log("username exists ? ", (querySnapshot.size > 0))
     return querySnapshot.size > 0;
   }
 
