@@ -5,7 +5,7 @@
 import authUser from "../fixtures/auth-user.json";
 
 describe('The Login Page', () => {
-    afterEach(() => cy.logout())
+    beforeEach(() => cy.logout())
     it('should login with email and password', () => {
         const { email, password, username} = authUser;
         cy.visit('/');
