@@ -16,10 +16,10 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
-        timeout-minutes: 5
         with:
           build: npm run build
           start: npm start
+          wait-on: 'http://localhost:4200'
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
