@@ -10,7 +10,7 @@ describe("The etablissement options", () => {
         cy.get('#etablissement').select(1).should("have.value", "Lycée international de Calgary")
 
     }),
-    it.only("should be correctly displayed in the teacher profile page", () => {
+    it("should be correctly displayed in the teacher profile page", () => {
         cy.login()
         cy.visit("/profile")
         cy.get('#pays').children().should('have.length', 3)
