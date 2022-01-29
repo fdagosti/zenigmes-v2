@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassesService } from '../classes.service';
 
@@ -9,6 +10,8 @@ import { ClassesService } from '../classes.service';
   styleUrls: ['./class-creation-form.component.scss']
 })
 export class ClassCreationFormComponent implements OnInit {
+
+  faPlus = faPlus;
 
   closeResult = '';
 

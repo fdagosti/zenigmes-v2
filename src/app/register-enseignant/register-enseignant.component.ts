@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FirebaseError } from 'firebase/app';
 import { AuthService } from '../shared/services/auth.service';
 import data from './etablissements.json';
 
 
 function passwordMatchValidator(g: FormGroup) {
+  console.log("formgroup ",g.get('password')?.touched," ",g.get('confirmPassword')?.touched)
+  console.log("formgroup 2 ",g.touched)
   return g.get('password')?.value === g.get('confirmPassword')?.value
     ? null : { 'mismatch': true };
 }
@@ -25,7 +28,6 @@ export class RegisterEnseignantComponent implements OnInit {
     {
       nom: [""],
       prenom: [""],
-      username: [""],
       email: ["", Validators.email],
       passwordGroup: this.fb.group({
         password: ["", [Validators.required, Validators.minLength(6)]],
@@ -36,9 +38,14 @@ export class RegisterEnseignantComponent implements OnInit {
       etablissement: [""],
     })
 
+  @ViewChild('merci') confirmationMsg: ElementRef | null = null;
 
 
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+
+  constructor(
+    private fb: FormBuilder,
+    private modalService: NgbModal,
+    private auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -49,14 +56,16 @@ export class RegisterEnseignantComponent implements OnInit {
     const prenom = this.formDetails.get("prenom")?.value;
     const email = this.formDetails.get("email")?.value;
     const password = this.formDetails.get("passwordGroup")?.get("password")?.value;
-    const username = this.formDetails.get("username")?.value;
     const role = "enseignant"
     const pays = this.formDetails.get("country")?.value;
     const ville = this.formDetails.get("town")?.value;
     const etablissement = this.formDetails.get("etablissement")?.value;
 
-    this.auth.register(nom, prenom, email, password, username, role, pays, ville, etablissement).then(
-      success => { },
+    this.auth.register(nom, prenom, email, password, "", role, pays, ville, etablissement).then(
+      success => {
+        console.log("success ")
+        this.modalService.open(this.confirmationMsg).result.then((result) => {}, (reason) => {});
+      },
       (error: any) => this.error = error)
   }
 
@@ -65,8 +74,16 @@ export class RegisterEnseignantComponent implements OnInit {
     return this.formDetails.get("email");
   }
 
-  get pwdGroup() {
-    return this.formDetails.get("passwordGroup");
+  get pwdGroup():FormGroup {
+    return this.formDetails.get("passwordGroup") as FormGroup;
+  }
+
+  get pwd() {
+    return this.formDetails.get("passwordGroup")?.get("password");
+  }
+
+  get pwdCf() {
+    return this.formDetails.get("passwordGroup")?.get("confirmPassword");
   }
 
   getCountries() {
@@ -93,5 +110,4 @@ export class RegisterEnseignantComponent implements OnInit {
     let result = this.formDetails.get("town")?.value
     return result
   }
-
 }

@@ -1,16 +1,16 @@
 <div class="container rounded bg-white mt-5 mb-5" *ngIf="auth.getUser() | async as user">
     <div class="row">
-        <div class="col-md-2 border-right">
+        <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                    width="150px"
-                    [src]="gravatarUrl(user.email)">
-                    <span class="font-weight-bold">
-                        {{user.prenom}}&nbsp;{{user.nom}}
-                    </span>
-                    <span class="text-black-50">
-                        {{user.email}}
-                    </span>
-                    <span></span></div>
+                    width="150px" [src]="gravatarUrl(user.email)">
+                <span class="font-weight-bold">
+                    {{user.prenom}}&nbsp;{{user.nom}}
+                </span>
+                <span class="text-black-50">
+                    {{user.email}}
+                </span>
+                <span></span>
+            </div>
         </div>
         <div class="col-md-9">
             <div class="p-3 py-5">
@@ -18,7 +18,10 @@
                     <ngb-panel id="profile-panel">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="d-flex align-items-center justify-content-between">
-                                <button style="border-width: 0;font-weight: bold;" ngbPanelToggle class="btn btn-outline-dark btn-lg container-fluid text-left"><fa-icon [icon]="faProfile"></fa-icon> &nbsp;   Mon Profil</button>
+                                <button style="border-width: 0;font-weight: bold;" ngbPanelToggle
+                                    class="btn btn-outline-dark btn-lg container-fluid text-left">
+                                    <fa-icon [icon]="faProfile"></fa-icon> &nbsp; Mon Profil
+                                </button>
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
@@ -28,7 +31,12 @@
                     <ngb-panel id="class-panel">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="d-flex align-items-center justify-content-between">
-                                <button style="border-width: 0;font-weight: bold;" ngbPanelToggle class="btn btn-outline-dark btn-lg container-fluid text-left"> <fa-icon [icon]="faSchool"></fa-icon> &nbsp;   Ma classe</button>
+                                <button style="border-width: 0;font-weight: bold;" ngbPanelToggle
+                                    class="btn btn-outline-dark btn-lg ">
+                                    <fa-icon [icon]="faSchool"></fa-icon> &nbsp; Mes classes &nbsp;
+                                    <fa-icon [icon]="faChevronDown"></fa-icon>
+                                </button>
+                                <app-class-creation-form></app-class-creation-form>
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>

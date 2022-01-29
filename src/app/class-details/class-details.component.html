@@ -1,5 +1,3 @@
-<app-class-creation-form class="mb-3"></app-class-creation-form>
-
 <div *ngIf="classGroups$ | async as classGroups">
   <h4 *ngIf="classGroups.length>0">Classes sous votre responsabilités</h4>
 <div class="row" *ngFor="let group of classGroups">

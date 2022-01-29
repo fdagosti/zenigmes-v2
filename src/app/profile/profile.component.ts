@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faSchool, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faSchool, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Md5 } from 'ts-md5';
 import { AuthService } from '../shared/services/auth.service';
 
@@ -17,6 +17,7 @@ export class ProfileComponent implements OnInit {
 
   faSchool = faSchool;
   faProfile = faUser;
+  faChevronDown = faChevronDown
 
   ngOnInit(): void {
     

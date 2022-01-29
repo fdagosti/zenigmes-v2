@@ -63,7 +63,7 @@ export class AuthService {
 
 
     const existingUsername = await this.usernameAlreadyExist(username);
-    if (existingUsername) {
+    if (existingUsername && false) {
       return Promise.reject("Le nom d'utilisateur existe déja")
     }
 
