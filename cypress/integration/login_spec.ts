@@ -4,24 +4,24 @@
 
 import authUser from "../fixtures/auth-user.json";
 
-describe('The Login Page', () => {
+describe('The Teacher Login Page', () => {
     beforeEach(() => cy.logout())
-    it('should login with email and password', () => {
-        const { email, password, username} = authUser;
+    it('should enable login with email and password', () => {
+        const { email, password} = authUser;
         cy.visit('/');
         cy.contains('Enseignants').click()
         cy.get('input[type=email]').type(email);
         cy.get('input[type=password]').type(password);
         
         cy.get("form").contains("form",'Soumettre').submit();
-        cy.contains(username).click()
+        cy.get("#logged-in-user").click()
         cy.contains("Se deconnecter").click()
         cy.contains('Enseignants')
     }),
     it('should login without UI', () => {
-        const { email, password, username} = authUser;
+        const { email, password} = authUser;
         cy.visit('/');
         cy.login(email, password)
-        cy.contains(username)
+        cy.get("#logged-in-user").should("exist")
     })
 })
