@@ -1,6 +1,6 @@
 <div *ngIf="toto | async as context; else loading">
 
-    <h3 class="mb-5">Bienvenu dans la classe {{context.className}} de Mr/Mlle {{context.nom}}</h3>
+    <h2 class="mb-5">Bienvenu dans la classe <span class="font-italic">{{context.className}}</span> de Mr/Mlle {{context.nom}}</h2>
 
     <div class="card" style="width: 18rem;">
         <div class="card-body">
