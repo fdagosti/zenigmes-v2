@@ -10,7 +10,7 @@ import { RegisterEnseignantComponent } from './register-enseignant/register-ense
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'register-enseignant', component: RegisterEnseignantComponent },
-  { path: 'register-eleve', component: RegisterEleveComponent },
+  { path: 'register-eleve/:code', component: RegisterEleveComponent },
   { path: 'login-eleve', component: LoginEleveComponent },
   { path: 'contact', component: ContactComponent },
   { path: '', component: LandingComponent },

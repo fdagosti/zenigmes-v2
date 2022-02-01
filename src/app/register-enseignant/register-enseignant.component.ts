@@ -7,8 +7,6 @@ import data from './etablissements.json';
 
 
 function passwordMatchValidator(g: FormGroup) {
-  console.log("formgroup ",g.get('password')?.touched," ",g.get('confirmPassword')?.touched)
-  console.log("formgroup 2 ",g.touched)
   return g.get('password')?.value === g.get('confirmPassword')?.value
     ? null : { 'mismatch': true };
 }

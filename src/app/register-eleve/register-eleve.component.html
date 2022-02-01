@@ -1,53 +1,62 @@
-<h1 class="mb-5">Eleves</h1>
+<div *ngIf="toto | async as context; else loading">
 
+    <h3 class="mb-5">Bienvenu dans la classe {{context.className}} de Mr/Mlle {{context.nom}}</h3>
 
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{context.etablissement}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{context.ville}}, {{context.pays}}</h6>
+            <p class="card-text">
+                <span class="font-weight-bold">Professeur: </span>{{context.prenom}}&nbsp;{{context.nom}} <br>
+                <span class="font-weight-bold">Classe: </span>{{context.className}}
+            </p>
 
-
-<form>
-    <div class="mb-3">
-        <label for="validationCustom01" class="form-label">First name</label>
-        <input type="text" class="form-control" id="validationCustom01" value="Mark" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-    </div>
-    <div class="mb-3">
-        <label for="validationCustom02" class="form-label">Last name</label>
-        <input type="text" class="form-control" id="validationCustom02" value="Otto" required>
-        <div class="valid-feedback">
-            Looks good!
-        </div>
-    </div>
-    
-    <div class="mb-3">
-        <label for="validationCustom02" class="form-label">Rejoindre le groupe</label>
-        <input type="text" class="form-control" id="validationCustom02" value="Code de groupe" required>
-        <div class="valid-feedback">
-            Looks good!
         </div>
     </div>
 
-
-    <div class="mb-3">
-        <label for="validationCustom02" class="form-label">Nom d'utilisateur</label>
-        <input type="text" class="form-control" id="validationCustom02" value="ptitnain" required>
-        <div class="valid-feedback">
-            Looks good!
+    <form class="mt-3" [formGroup]="formDetails" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label for="validationCustom01" class="form-label">Nom</label>
+                <input type="text" class="form-control" id="validationCustom01" formControlName="nom" required>
+            </div>
+            <div class="col mb-3">
+                <label for="validationCustom02" class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="validationCustom02" formControlName="prenom" required>
+            </div>
         </div>
-    </div>
 
-    <div class="mb-3">
-        <label for="password-eleve" class="form-label">Mot de passe</label>
-        <input type="password" class="form-control" id="password-eleve">
-    </div>
+        <div class="row g-3">
+            <div class="col mb-3">
+                <label for="username-eleve" class="form-label">Nom D'utilisateur</label>
+                <input type="text" class="form-control" id="username-eleve" formControlName="username"
+                    autocomplete="username">
+            </div>
+        </div>
 
-    <div class="mb-3">
-        <label for="confirm-password-eleve" class="form-label">Confirmez le mot de passe</label>
-        <input type="password" class="form-control" id="confirm-password-eleve">
-    </div>
+        <div class="row g-3" formGroupName="passwordGroup">
+            <div class="col mb-3">
+                <label for="password-enseignant" class="form-label">Mot de passe</label>
+                <input type="password" autocomplete="new-password" class="form-control" id="password-enseignant"
+                    formControlName="password">
+                <div *ngIf="pwd?.touched && pwdCf?.touched && pwdGroup?.invalid" class="text-danger">
+                    <div *ngIf="pwdGroup?.errors">mot de passe ne correspondent pas</div>
+                    <div *ngIf="!pwdGroup?.errors">Minimum 6 caractères</div>
+                </div>
+            </div>
 
+            <div class="col mb-3">
+                <label for="confirm-password-enseignant" class="form-label">Confirmez le mot de passe</label>
+                <input type="password" autocomplete="new-password" class="form-control" id="confirm-password-enseignant"
+                    formControlName="confirmPassword">
+            </div>
+        </div>
 
-    
+        <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'">Soumettre</button>
+    </form>
 
-    <button type="submit" class="btn btn-primary">Rejoindre mon groupe</button>
-</form>
+</div>
+
+<ng-template #loading>
+    Loading stuff...
+</ng-template>

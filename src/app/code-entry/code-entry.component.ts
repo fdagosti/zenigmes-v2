@@ -36,7 +36,7 @@ export class CodeEntryComponent implements OnInit {
       if (classroom.exists()) {
         console.log("it worked, let's navigate to registration ", classroom.exists())
         this.closeEvent.emit("true");
-        this.router.navigate(["/register-eleve"])
+        this.router.navigate(["/register-eleve", code])
 
       } else {
         this.error = "Code non Valide"
