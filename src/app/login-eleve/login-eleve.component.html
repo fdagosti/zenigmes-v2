@@ -1,1 +1,15 @@
-<p>login-eleve works!</p>
+<form class="px-4 py-3" [formGroup]="formDetails" (ngSubmit)="onSubmit()">
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+        ca ne marche pas
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Nom d'utilisaateur</label>
+        <input autocomplete="username" type="text" formControlName="username" class="form-control" id="username" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="password-eleve" class="form-label">Mot de passe</label>
+        <input type="password" autocomplete="new-password" formControlName="password" class="form-control" id="password-eleve">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'">Soumettre</button>
+</form>

@@ -23,8 +23,8 @@
 
     <div class="row g-3">
         <div class="col mb-3">
-            <label for="exampleInputEmail1" class="form-label">Adresse Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <label for="email-enseignant" class="form-label">Adresse Email</label>
+            <input type="email" class="form-control" id="email-enseignant" aria-describedby="emailHelp"
                 formControlName="email" autocomplete="email">
             <div *ngIf="email?.touched && email?.invalid" class="text-danger">
                 <div>email pas bon</div>
@@ -37,8 +37,8 @@
 
     <div class="row g-3" formGroupName="passwordGroup">
         <div class="col mb-3">
-            <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-            <input type="password" autocomplete="new-password" class="form-control" id="exampleInputPassword1" formControlName="password">
+            <label for="password-enseignant" class="form-label">Mot de passe</label>
+            <input type="password" autocomplete="new-password" class="form-control" id="password-enseignant" formControlName="password">
             <div *ngIf="pwd?.touched && pwdCf?.touched && pwdGroup?.invalid" class="text-danger">
                 <div *ngIf="pwdGroup?.errors">mot de passe ne correspondent pas</div>
                 <div *ngIf="!pwdGroup?.errors">Minimum 6 caractères</div>
@@ -46,8 +46,8 @@
         </div>
 
         <div class="col mb-3">
-            <label for="exampleInputPassword1" class="form-label">Confirmez le mot de passe</label>
-            <input type="password" autocomplete="new-password" class="form-control" id="exampleInputPassword1" formControlName="confirmPassword">
+            <label for="confirm-password-enseignant" class="form-label">Confirmez le mot de passe</label>
+            <input type="password" autocomplete="new-password" class="form-control" id="confirm-password-enseignant" formControlName="confirmPassword">
         </div>
         
     </div>

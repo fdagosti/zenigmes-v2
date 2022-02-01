@@ -13,7 +13,7 @@ classGroups$;
 
   constructor(private classRooms: ClassesService) { 
 
-    this.classGroups$ = classRooms.getClassroomsObs().pipe(
+    this.classGroups$ = classRooms.getCurrentUserClassroomsObs().pipe(
       map((arr: any) => {
         const GRP_SIZE = 2;
         const groupedArray = Array.from({ length: Math.ceil(arr.length / GRP_SIZE) }, (v, i) =>

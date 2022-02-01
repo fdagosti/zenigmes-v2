@@ -1,0 +1,17 @@
+<div class="text-nowrap">
+    <span class="btn">Vous avez recu un code d'inscription?</span>
+    <button type="button" class="btn btn-link" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">Entrez le ici</button>
+    <div class="px-4 py-3 " #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <form [formGroup]="formDetails" (ngSubmit)="onSubmit()">
+            <ngb-alert type="danger" *ngIf="error" (closed)="error=false" >
+                {{error}}
+            </ngb-alert>
+            
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Code donné par votre professeur</label>
+                <input type="text" formControlName="code" class="form-control" id="registercode">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="formDetails.status=='INVALID'">Entrer dans une classe</button>
+        </form>
+    </div>
+</div>

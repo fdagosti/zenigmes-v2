@@ -12,14 +12,13 @@ export class ForgotPasswordComponent implements OnInit {
 
   closeResult = '';
 
-  formDetails = this.fb.group(
-    {
-      email: ["", [Validators.email, Validators.required]],
-    })
+  formDetails = this.fb.group({
+    email: ["", [Validators.email, Validators.required]],
+  })
 
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private auth: AuthService) { }
 
@@ -28,12 +27,12 @@ export class ForgotPasswordComponent implements OnInit {
 
   open(passwordContent: any, summaryContent: any) {
     console.log("open with content", passwordContent)
-    this.modalService.open(passwordContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(passwordContent, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
       const email = this.formDetails.get("email")?.value;
       this.formDetails.reset()
       this.auth.resetPassword(email).then(result => {
-        console.log("result ",result);
+        console.log("result ", result);
         this.modalService.open(summaryContent)
       })
     }, (reason) => {

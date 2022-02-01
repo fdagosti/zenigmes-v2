@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, Firestore, getDocs, query, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, documentId, Firestore, getDoc, query, where } from '@angular/fire/firestore';
 import { deleteDoc } from 'firebase/firestore';
 import { docData } from 'rxfire/firestore';
 import { DocumentData } from 'rxfire/firestore/interfaces';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { AuthService } from './shared/services/auth.service';
 
 @Injectable({
@@ -13,17 +13,17 @@ export class ClassesService {
 
   classes$: Observable<DocumentData | null>
 
-  constructor(private afs: Firestore, private auth: AuthService) { 
-    const classRef = collection(this.afs, "classes")
-    let uid:any = this.auth.currentUser()?.uid;
-    const q = query(classRef, where("teacher", "==", uid));
-    const user$ = docData(doc(this.afs, 'profiles', uid));
-    const request$ = collectionData(q,{idField: "id"});
+  constructor(private afs: Firestore, private auth: AuthService) {
+
+    const user$ = this.auth.getUser()
     this.classes$ = user$.pipe(
-      switchMap((user:any) => {
+      switchMap((user: any) => {
+        const classRef = collection(this.afs, "classes")
+        const q = query(classRef, where("teacher", "==", user.uid));
+        const request$ = collectionData(q, { idField: "id" });
         return request$.pipe(
           map(classRooms => {
-            return classRooms.map(classRoom => ({...classRoom, teacher: `${user.prenom} ${user.nom}`}))
+            return classRooms.map(classRoom => ({ ...classRoom, teacher: `${user.prenom} ${user.nom}` }))
           })
         )
       })
@@ -40,13 +40,18 @@ export class ClassesService {
 
   }
 
-  getClassroomsObs(){
+  getCurrentUserClassroomsObs() {
     return this.classes$;
   }
 
-  async deleteClass(classroom:any){
+  async deleteClass(classroom: any) {
     let docRef = doc(this.afs, 'classes', classroom.id)
     deleteDoc(docRef)
+  }
+
+  async getClassroom(code: string) {
+    const docRef = doc(this.afs, "classes", code)
+    return getDoc(docRef);
   }
 
 }

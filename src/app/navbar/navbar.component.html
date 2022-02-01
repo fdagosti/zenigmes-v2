@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" (click)="isMenuCollapsed = true" routerLink="/">
         <img src="assets/logo.png" height="60" alt="">&nbsp;&nbsp;
-        <img src="assets/AEFE-AP-crop.png" height="60"alt="">
+        <img src="assets/AEFE-AP-crop.png" height="60" alt="">
         <span class="h2 mb-0 ml-3 align-middle">LES ZENIGMES</span>
     </a>
     <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed"
@@ -16,7 +16,8 @@
                     <button style="min-width: 100px;" class="btn btn-light-primary mr-2" id="logged-in-user"
                         ngbDropdownToggle>{{user.prenom}} {{user.nom}}</button>
                     <div ngbDropdownMenu aria-labelledby="logged-in-user">
-                        <button (click)="isMenuCollapsed = true" routerLink="profile" ngbDropdownItem>Votre profil</button>
+                        <button (click)="isMenuCollapsed = true" routerLink="profile" ngbDropdownItem>Votre
+                            profil</button>
                         <button (click)="auth.logout()" ngbDropdownItem routerLink="/">Se deconnecter</button>
                     </div>
                 </div>
@@ -39,20 +40,21 @@
             <div ngbDropdownMenu aria-labelledby="dropdownManual">
                 <app-login-enseignant></app-login-enseignant>
                 <div class="dropdown-divider"></div>
-                <button (click)="isMenuCollapsed = true" ngbDropdownItem routerLink="register-enseignant">Nouveau dans
-                    le coin?  Creez votre compte!</button>
+                <button ngbDropdownItem routerLink="register-enseignant">
+                    Nouveau dans le coin? Creez votre compte!
+                </button>
                 <app-forgot-password></app-forgot-password>
             </div>
         </div>
     </li>
 
-    <li *ngIf="false" class="nav-item">
+    <li class="nav-item">
         <div class="d-inline-block" ngbDropdown #myDrop2="ngbDropdown">
             <button class="btn btn-light-primary mr-2" id="dropdownManual" ngbDropdownToggle>Eleves</button>
             <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                <button (click)="isMenuCollapsed = true" ngbDropdownItem routerLink="register-eleve">S'inscrire</button>
-                <button (click)="isMenuCollapsed = true" ngbDropdownItem routerLink="login-eleve">Se
-                    connecter</button>
+                <app-login-eleve></app-login-eleve>
+                <div class="dropdown-divider"></div>
+                <app-code-entry (closeEvent)="myDrop2.close()" ></app-code-entry>
             </div>
         </div>
     </li>

@@ -31,6 +31,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ClassDetailsComponent } from './class-details/class-details.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { ClassCreationFormComponent } from './class-creation-form/class-creation-form.component';
+import { CodeEntryComponent } from './code-entry/code-entry.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { ClassCreationFormComponent } from './class-creation-form/class-creation
     ProfileComponent,
     ClassDetailsComponent,
     ProfileDetailsComponent,
-    ClassCreationFormComponent
+    ClassCreationFormComponent,
+    CodeEntryComponent
   ],
   imports: [
     BrowserModule,
