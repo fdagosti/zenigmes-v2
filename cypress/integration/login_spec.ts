@@ -11,7 +11,7 @@ describe('The Teacher Login Page', () => {
         cy.visit('/');
         cy.contains('Enseignants').click()
         cy.get('input[type=email]').type(email);
-        cy.get('input[type=password]').type(password);
+        cy.get('#password-enseignant').type(password);
         
         cy.get("form").contains("form",'Soumettre').submit();
         cy.get("#logged-in-user").click()
