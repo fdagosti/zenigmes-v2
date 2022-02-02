@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h4 class="modal-title">Ajouter des elèves à la class {{classroom.className}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p>Selectionner tous les élèves que vous voudriez ajouter à votre classe</p>
+
+    <ngb-alert type="danger"  *ngIf="error" (closed)="error=false" >
+        {{error}}
+    </ngb-alert>
+    
+
+    <form *ngIf="eleves$ |async as eleves"  [formGroup]="formDetails">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">nom d'utilisateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let eleve of eleves; index as i">
+                <th scope="row">
+                    <div class="form-check">
+                        <input class="form-check-input" [formControlName]="eleve['uid']" type="checkbox" value="" [id]="eleve['username']">
+                      </div>
+                </th>
+                <td>
+                    {{ eleve["prenom"] }}
+                </td>
+                <td>{{ eleve["nom"]  }}</td>
+                <td>{{ eleve["username"] }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onSubmit()">Ajouter les élèves</button>
+</div>

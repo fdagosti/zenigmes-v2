@@ -13,7 +13,7 @@
             <button type="button" class="btn btn-outline-secondary" (click)="collapse.toggle()"
               [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" [disabled]="classe.students.length ==0">
               étudiants ({{classe.students.length}})
-            </button>&nbsp;<button class="btn btn-link" disabled>Ajouter des élèves</button>
+            </button>&nbsp;<button class="btn btn-link" (click)="addStudentsToClassroom(classe)" >Ajouter des élèves</button>
           </p>
           <div class="mb-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
             <div class="card">

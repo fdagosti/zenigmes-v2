@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
 import { ClassesService } from '../classes.service';
+import { StudentAdditionComponent } from '../student-addition/student-addition.component';
 
 @Component({
   selector: 'app-class-details',
@@ -12,7 +14,10 @@ export class ClassDetailsComponent implements OnInit {
 classGroups$;
 public isCollapsed = true;
 
-  constructor(private classRooms: ClassesService) { 
+  constructor(
+    private classRooms: ClassesService,
+    private modalService: NgbModal,
+    ) { 
 
     this.classGroups$ = classRooms.getCurrentUserClassroomsObs().pipe(
       map((arr: any) => {
@@ -29,6 +34,12 @@ public isCollapsed = true;
 
   deleteClass(classroom:any){
     this.classRooms.deleteClass(classroom)
+  }
+
+  addStudentsToClassroom(classroom:any){
+    const modalRef = this.modalService.open(StudentAdditionComponent);
+    modalRef.componentInstance.classroom = classroom;
+    modalRef.result.then((result) => {console.log("successful addition ",result) }, (reason) => {console.log("failure ",reason) });
   }
 
 }

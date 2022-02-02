@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, documentId, Firestore, getDoc, query, where } from '@angular/fire/firestore';
+import { addDoc, arrayUnion, collection, collectionData, doc, documentId, Firestore, getDoc, query, updateDoc, where } from '@angular/fire/firestore';
 import { deleteDoc } from 'firebase/firestore';
 import { docData } from 'rxfire/firestore';
 import { DocumentData } from 'rxfire/firestore/interfaces';
@@ -30,8 +30,10 @@ export class ClassesService {
             if (classRooms.length == 0) return of([]);
 
             return combineLatest(classRooms.map((classroom: any) => {
-              const students$ = classroom.students ? combineLatest(classroom.students?.map((student: any) => docData(doc(this.afs, "profiles-eleves", student)))) : of([])
-              
+              const students$ = classroom.students ?
+                combineLatest(classroom.students?.map((student: any) => docData(doc(this.afs, "profiles-eleves", student), { idField: 'uid' })))
+                : of([])
+
               const teacher$ = docData(doc(this.afs, 'profiles', classroom.teacher))
 
               return combineLatest([students$, teacher$]).pipe(
@@ -59,13 +61,20 @@ export class ClassesService {
   }
 
   async deleteClass(classroom: any) {
-    let docRef = doc(this.afs, 'classes', classroom.id)
-    deleteDoc(docRef)
+    let classRef = doc(this.afs, 'classes', classroom.id)
+    deleteDoc(classRef)
   }
 
   async getClassroom(code: string) {
-    const docRef = doc(this.afs, "classes", code)
-    return getDoc(docRef);
+    const classRef = doc(this.afs, "classes", code)
+    return getDoc(classRef);
+  }
+
+  async addStudentToClassroom(classId: string, students: string[]) {
+    const classRef = doc(this.afs, "classes", classId);
+    return updateDoc(classRef, {
+      students: arrayUnion(...students)
+    });
   }
 
 }

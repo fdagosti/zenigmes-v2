@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { arrayUnion, collection, doc, Firestore, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { arrayUnion, collection, collectionData, doc, docData, Firestore, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { createUserWithEmailAndPassword, UserCredential } from 'firebase/auth';
+import { DocumentData } from 'rxfire/firestore/interfaces';
+import { Observable } from 'rxjs';
+import { ClassesService } from './classes.service';
 
 const FAKE_MAIL_DOMAIN = "FAKEDOMAIN-ZENIGMES.IO"
 
@@ -10,12 +13,16 @@ const FAKE_MAIL_DOMAIN = "FAKEDOMAIN-ZENIGMES.IO"
 })
 export class EleveService {
 
-
+  eleves$
 
   constructor(
     public afs: Firestore,
     public auth: Auth,
-  ) { }
+    private classes: ClassesService
+  ) { 
+    const eleveRef = collection(this.afs, "profiles-eleves")
+    this.eleves$ = collectionData(eleveRef,{ idField: 'uid' })
+  }
 
   async register(nom: string, prenom: string, username: string, password: string, classId: string)
     : Promise<void> {
@@ -33,18 +40,12 @@ export class EleveService {
       password
     );
 
-    await this.addStudentToClassroom(classId, credential.user.uid)
+    await this.classes.addStudentToClassroom(classId, [credential.user.uid])
 
     return this.updateProfile(credential, nom, prenom, username);
   }
 
-  private async addStudentToClassroom(classId: string, userId: string){
-    const docRef = doc(this.afs, "classes", classId);
-    return updateDoc(docRef, {
-      students: arrayUnion(userId)
-    });
-  }
-
+  
   private async updateProfile(credential: UserCredential, nom: string, prenom: string, username: string) {
     return setDoc(doc(this.afs, "profiles-eleves", credential.user.uid), {
       nom,
@@ -67,4 +68,9 @@ export class EleveService {
 
     return await signInWithEmailAndPassword(this.auth, email, password);
   }
+
+  getEleves(){
+    return this.eleves$;
+  }
+
 }
