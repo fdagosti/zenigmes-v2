@@ -15,7 +15,7 @@
             <input formControlName="className" id="className" class="form-control" name="className" type="text" >
           </div>
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group">
           <label for="niveau">Niveau</label>
           <select class="custom-select my-1 mr-sm-2" formControlName="niveau" id="niveau">
               <option *ngFor="let niveau of niveaux_array" [value]="niveau[0]">{{niveau[1]}}</option>
