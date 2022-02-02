@@ -1,51 +1,8 @@
 <div *ngIf="classGroups$ | async as classGroups">
   <h4 *ngIf="classGroups.length==0">Pas de classes</h4>
-  <div class="row" *ngFor="let group of classGroups">
-    <div class="col-lg-6 mb-3" *ngFor="let classe of group">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{classe.className}}&nbsp;({{classe.niveau}})</h5>
-          <p><span
-              style="font-weight: bold;">Professeur:&nbsp;</span><span>{{classe.teacher?.prenom}}&nbsp;{{classe.teacher?.nom}}</span>
-          </p>
-          <p><span style="font-weight: bold;">Code:&nbsp;</span><span>{{classe.id}}</span></p>
-          <p>
-            <button type="button" class="btn btn-outline-secondary" (click)="collapse.toggle()"
-              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
-              [disabled]="classe.students.length ==0">
-              étudiants ({{classe.students.length}})
-            </button>&nbsp;<button class="btn btn-link" (click)="addStudentsToClassroom(classe)">Ajouter des
-              élèves</button>
-          </p>
-          <div class="mb-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-            <div class="card">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">Prénom/Nom</th>
-                    <th scope="col">utilisateur</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let eleve of classe.students; index as i">
-                    <td>
-                      {{ eleve["prenom"] }}&nbsp;{{ eleve["nom"] }}
-                    </td>
-                    <td>{{ eleve["username"] }}</td>
-                    <th scope="row">
-                      <button (click)="deleteStudentFromClassroom(classe, eleve)" class="btn btn-danger">
-                        <fa-icon [icon]="faTimes"></fa-icon>
-                      </button>
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <button disabled type="button" class="btn btn-primary mr-2">Modifier Classe</button>
-          <button type="button" (click)="deleteClass(classe)" class="btn btn-danger">Effacer Classe</button>
-        </div>
-      </div>
+  <div class="row" *ngFor="let group of classGroups; index as grpIdx; trackBy: trackByIndex">
+    <div class="col-lg-6 mb-3" *ngFor="let classe of group; index as i; trackBy: trackByClassId">
+      <app-class-card [classe]="classe"></app-class-card>
     </div>
   </div>
 </div>

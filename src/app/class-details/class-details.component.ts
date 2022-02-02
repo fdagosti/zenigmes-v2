@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
 import { ClassesService } from '../classes.service';
-import { StudentAdditionComponent } from '../student-addition/student-addition.component';
 
 @Component({
   selector: 'app-class-details',
@@ -13,14 +11,9 @@ import { StudentAdditionComponent } from '../student-addition/student-addition.c
 export class ClassDetailsComponent implements OnInit {
 
   classGroups$;
-  public isCollapsed = true;
-
-
-  faTimes = faTimes;
 
   constructor(
     private classRooms: ClassesService,
-    private modalService: NgbModal,
   ) {
 
     this.classGroups$ = classRooms.getCurrentUserClassroomsObs().pipe(
@@ -36,17 +29,12 @@ export class ClassDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteClass(classroom: any) {
-    this.classRooms.deleteClass(classroom)
+  trackByIndex(index:any, classe:any){
+    return index;
   }
 
-  addStudentsToClassroom(classroom: any) {
-    const modalRef = this.modalService.open(StudentAdditionComponent);
-    modalRef.componentInstance.classroom = classroom;
-  }
-
-  deleteStudentFromClassroom(classroom: any, student:any){
-    this.classRooms.deleteSudentFromClassroom(classroom.id, [student.uid])
+  trackByClassId(index:any, classe:any){
+    return classe.id
   }
 
 }
