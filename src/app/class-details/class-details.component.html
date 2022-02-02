@@ -18,8 +18,9 @@
           <div class="mb-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
             <div class="card">
               <ul class="list-group">
-                <li class="list-group-item" *ngFor="let student of classe.students">
-                  {{student.prenom}}&nbsp;{{student.nom}}&nbsp;<span class="fst-italic" >"{{student.username}}"</span>
+                <li class="list-group-item d-flex align-items-center justify-content-between" *ngFor="let student of classe.students">
+                  <span>{{student.prenom}}&nbsp;{{student.nom}}&nbsp;<span class="fst-italic" >"{{student.username}}"</span> </span>  
+                  <button (click)="deleteStudentFromClassroom(classe, student)" class="btn btn-danger"><fa-icon [icon]="faTimes"></fa-icon></button>
                 </li>
               </ul>
             </div>

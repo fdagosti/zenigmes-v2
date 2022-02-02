@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { addDoc, arrayUnion, collection, collectionData, doc, documentId, Firestore, getDoc, query, updateDoc, where } from '@angular/fire/firestore';
-import { deleteDoc } from 'firebase/firestore';
+import { arrayRemove, deleteDoc } from 'firebase/firestore';
 import { docData } from 'rxfire/firestore';
 import { DocumentData } from 'rxfire/firestore/interfaces';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
@@ -74,6 +74,13 @@ export class ClassesService {
     const classRef = doc(this.afs, "classes", classId);
     return updateDoc(classRef, {
       students: arrayUnion(...students)
+    });
+  }
+
+  async deleteSudentFromClassroom(classId: string, students: string[]){
+    const classRef = doc(this.afs, "classes", classId);
+    return updateDoc(classRef, {
+      students: arrayRemove(...students)
     });
   }
 
