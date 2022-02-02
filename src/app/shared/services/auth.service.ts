@@ -5,7 +5,7 @@ import {
 import { collection, docData, Firestore, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { doc, DocumentData } from 'firebase/firestore';
-import { lastValueFrom, map, observable, Observable, of, switchMap, take, tap } from 'rxjs';
+import { catchError, combineLatest, forkJoin, lastValueFrom, map, observable, Observable, of, switchMap, take, tap } from 'rxjs';
 
 
 
@@ -31,8 +31,22 @@ export class AuthService {
           const displayName = userData.displayName;
           const uid = userData.uid;
 
-          return docData(doc(this.afs, 'profiles', uid)).pipe(
-            map((profileData) => { return { username: "l'inconnu du nord", prenom: "John", nom: "Doe", ...profileData, email, displayName, uid } })
+          const enseignant_profile = docData(doc(this.afs, 'profiles', uid));
+          const eleve_profile = docData(doc(this.afs, 'profiles-eleves', uid));
+
+          return combineLatest([enseignant_profile, eleve_profile]).pipe(
+            map(([profileEnseignant, profileEleve]) => ({
+              username: "l'inconnu du nord",
+              prenom: "John",
+              nom: "Doe",
+              ...profileEnseignant,
+              ...profileEleve,
+              email,
+              displayName,
+              uid, 
+              eleve: profileEleve != undefined,
+              enseignant: profileEnseignant != undefined,
+            }))
           ) as Observable<any>
         }
         return of(null);
@@ -41,7 +55,7 @@ export class AuthService {
     );
   }
 
-  currentUser(){
+  currentUser() {
     return this.auth.currentUser;
   }
 
@@ -58,14 +72,9 @@ export class AuthService {
     return await signOut(this.auth).then(() => this.router.navigate(["/"]));
   }
 
-  async register(nom: string, prenom: string, email: string, password: string, username: string, role: string, pays: string, ville: string, etablissement: string)
+  async register(nom: string, prenom: string, email: string, password: string, username: string, pays: string, ville: string, etablissement: string)
     : Promise<void> {
 
-
-    const existingUsername = await this.usernameAlreadyExist(username);
-    if (existingUsername && false) {
-      return Promise.reject("Le nom d'utilisateur existe déja")
-    }
 
     const credential = await createUserWithEmailAndPassword(
       this.auth,
@@ -75,21 +84,14 @@ export class AuthService {
 
     const user = credential.user;
 
-    this.updateProfile(credential, nom, prenom, username, role, pays, ville, etablissement).then(() => this.router.navigate(["/"]));;
+    this.updateProfile(credential, nom, prenom, username, pays, ville, etablissement).then(() => this.router.navigate(["/"]));;
   }
 
-  async updateUser(changeObject:any, uid: string){
-    await setDoc(doc(this.afs, "profiles", uid), changeObject, {merge: true});
+  async updateUser(changeObject: any, uid: string) {
+    await setDoc(doc(this.afs, "profiles", uid), changeObject, { merge: true });
   }
 
-  async usernameAlreadyExist(username: string) {
-    const profilesRef = collection(this.afs, "profiles")
-    const q = query(profilesRef, where("username", "==", username));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.size > 0;
-  }
-
-  async updateProfile(credential: UserCredential, nom: string, prenom: string, username: string, role: string, pays: string, ville: string, etablissement: string) {
+  async updateProfile(credential: UserCredential, nom: string, prenom: string, username: string, pays: string, ville: string, etablissement: string) {
     await setDoc(doc(this.afs, "profiles", credential.user.uid), {
       nom,
       prenom,
@@ -97,7 +99,6 @@ export class AuthService {
       pays,
       ville,
       etablissement,
-      role
     });
 
   }

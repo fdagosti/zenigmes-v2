@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { from, map, Observable, switchMap, tap } from 'rxjs';
+import { from, map, Observable, switchMap } from 'rxjs';
 import { ClassesService } from '../classes.service';
+import { EleveService } from '../eleve.service';
 import { EnseignantService } from '../enseignant.service';
-import { AuthService } from '../shared/services/auth.service';
 
 function passwordMatchValidator(g: FormGroup) {
   return g.get('password')?.value === g.get('confirmPassword')?.value
@@ -19,7 +18,9 @@ function passwordMatchValidator(g: FormGroup) {
 })
 export class RegisterEleveComponent implements OnInit {
 
-  toto: Observable<any>;
+  error: any = null;
+
+  classContext: Observable<any>;
 
   formDetails = this.fb.group(
     {
@@ -36,13 +37,14 @@ export class RegisterEleveComponent implements OnInit {
     })
 
   constructor(
-    private route: ActivatedRoute, 
-    private classrooms: ClassesService, 
+    private route: ActivatedRoute,
+    private classrooms: ClassesService,
     private enseignant: EnseignantService,
+    private eleve: EleveService,
     private fb: FormBuilder
-    ) {
+  ) {
 
-    this.toto = this.route.params.pipe(
+    this.classContext = this.route.params.pipe(
       map(params => params["code"]),
       switchMap((code: string) => from(this.classrooms.getClassroom(code))),
       map(dbObject => dbObject.data() as any),
@@ -59,10 +61,22 @@ export class RegisterEleveComponent implements OnInit {
 
   onSubmit(): void {
     console.log("submitting form ", this.formDetails)
+
+    const nom = this.formDetails.get("nom")?.value;
+    const prenom = this.formDetails.get("prenom")?.value;
+    const username = this.formDetails.get("username")?.value;
+    const password = this.formDetails.get("passwordGroup")?.get("password")?.value;
+
+    this.eleve.register(nom, prenom, username, password).then(
+      success => {
+        console.log("success ")
+      },
+      (error: any) => this.error = error)
+
   }
 
 
-  get pwdGroup():FormGroup {
+  get pwdGroup(): FormGroup {
     return this.formDetails.get("passwordGroup") as FormGroup;
   }
 

@@ -1,4 +1,7 @@
 <div class="container rounded bg-white mt-5 mb-5" *ngIf="auth.getUser() | async as user">
+
+    <pre>{{user | json}}</pre>
+
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
@@ -6,8 +9,11 @@
                 <span class="font-weight-bold">
                     {{user.prenom}}&nbsp;{{user.nom}}
                 </span>
-                <span class="text-black-50">
+                <span *ngIf="user.enseignant" class="text-black-50">
                     {{user.email}}
+                </span>
+                <span *ngIf="user.eleve" class="text-black-50">
+                    {{user.username}}
                 </span>
                 <span></span>
             </div>
@@ -28,7 +34,7 @@
                             <app-profile-details></app-profile-details>
                         </ng-template>
                     </ngb-panel>
-                    <ngb-panel id="class-panel">
+                    <ngb-panel *ngIf="user.enseignant" id="class-panel">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="d-flex align-items-center justify-content-between">
                                 <button style="border-width: 0;font-weight: bold;" ngbPanelToggle

@@ -18,10 +18,10 @@
     </div>
 
     <div class="row mt-3">
-        <div class="col-md-6">
+        <div class="col-md-12" *ngIf="user.eleve">
             <label class="labels">Nom d'utilisateur</label>
             <input type="text" class="form-control" placeholder="enter phone number" formControlName="username" value=""></div>
-        <div class="col-md-6">
+        <div class="col-md-12" *ngIf="user.enseignant">
             <label class="labels">Email ID</label>
             <input type="text" autocomplete="email" class="form-control" placeholder="enter email id" formControlName="email" value="">
         </div>

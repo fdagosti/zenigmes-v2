@@ -54,12 +54,11 @@ export class RegisterEnseignantComponent implements OnInit {
     const prenom = this.formDetails.get("prenom")?.value;
     const email = this.formDetails.get("email")?.value;
     const password = this.formDetails.get("passwordGroup")?.get("password")?.value;
-    const role = "enseignant"
     const pays = this.formDetails.get("country")?.value;
     const ville = this.formDetails.get("town")?.value;
     const etablissement = this.formDetails.get("etablissement")?.value;
 
-    this.auth.register(nom, prenom, email, password, "", role, pays, ville, etablissement).then(
+    this.auth.register(nom, prenom, email, password, "", pays, ville, etablissement).then(
       success => {
         console.log("success ")
         this.modalService.open(this.confirmationMsg).result.then((result) => {}, (reason) => {});

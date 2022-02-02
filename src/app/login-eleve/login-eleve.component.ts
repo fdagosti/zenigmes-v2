@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { EleveAuthService } from '../eleve-auth.service';
+import { Router } from '@angular/router';
+import { EleveService } from '../eleve.service';
 
 @Component({
   selector: 'app-login-eleve',
@@ -17,7 +18,7 @@ export class LoginEleveComponent implements OnInit {
       password: ["", [Validators.required]],
     })
 
-  constructor(private fb: FormBuilder, private auth: EleveAuthService) { }
+  constructor(private fb: FormBuilder, private auth: EleveService, private router: Router) { }
 
 
   ngOnInit(): void {
@@ -25,6 +26,11 @@ export class LoginEleveComponent implements OnInit {
 
   onSubmit(): void {
     console.log("submitting form ", this.formDetails)
+
+    const ussername = this.formDetails.get("username")?.value;
+    const password = this.formDetails.get("password")?.value;
+
+    this.auth.login(ussername, password).then(() => this.router.navigate(["/"]))
   }
 
 }

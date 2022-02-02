@@ -1,4 +1,4 @@
-<div *ngIf="toto | async as context; else loading">
+<div *ngIf="classContext | async as context; else loading">
 
     <h2 class="mb-5">Bienvenu dans la classe <span class="font-italic">{{context.className}}</span> de Mr/Mlle {{context.nom}}</h2>
 
@@ -13,6 +13,10 @@
 
         </div>
     </div>
+
+    <ngb-alert type="danger" *ngIf="error" (closed)="error=false" >
+        {{error}}
+    </ngb-alert>
 
     <form class="mt-3" [formGroup]="formDetails" (ngSubmit)="onSubmit()">
         <div class="row g-3">

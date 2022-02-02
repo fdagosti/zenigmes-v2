@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClassesService } from '../classes.service';
-import { EleveAuthService } from '../eleve-auth.service';
 
 @Component({
   selector: 'app-code-entry',
