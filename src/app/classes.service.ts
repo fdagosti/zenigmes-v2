@@ -6,6 +6,22 @@ import { DocumentData } from 'rxfire/firestore/interfaces';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { AuthService } from './shared/services/auth.service';
 
+
+export enum NIVEAUX_ECOLE {
+  "CP" = "CP",
+  "CE1" = "CE1",
+  "CE2" = "CE2",
+  "CM1" = "CM1",
+  "CM2" = "CM2",
+  "6EME" = "6ème",
+  "5EME" = "5ème",
+  "4EME" = "4ème",
+  "3EME" = "3ème",
+  "2NDE" = "Seconde",
+  "TERM" = "Terminale",
+  "PREM" = "Première",
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,6 +46,7 @@ export class ClassesService {
             if (classRooms.length == 0) return of([]);
 
             return combineLatest(classRooms.map((classroom: any) => {
+              classroom.niveau = this.fromStringToNiveau(classroom.niveau);
               const students$ = classroom.students ?
                 combineLatest(classroom.students?.map((student: any) => docData(doc(this.afs, "profiles-eleves", student), { idField: 'uid' })))
                 : of([])
@@ -46,12 +63,17 @@ export class ClassesService {
     )
   }
 
-  async createClasse(className: string) {
+  fromStringToNiveau(niveau:string):NIVEAUX_ECOLE {
+    return (<any>NIVEAUX_ECOLE)[niveau];
+  }
+
+  async createClasse(className: string, niveau: NIVEAUX_ECOLE) {
     let colRef = collection(this.afs, "classes");
     let uid = this.auth.currentUser()?.uid;
     addDoc(colRef, {
       className,
-      teacher: uid
+      teacher: uid,
+      niveau
     });
 
   }

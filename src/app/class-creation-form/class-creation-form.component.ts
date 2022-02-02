@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClassesService } from '../classes.service';
+import { NIVEAUX_ECOLE } from '../classes.service';
+
 
 @Component({
   selector: 'app-class-creation-form',
@@ -18,6 +20,7 @@ export class ClassCreationFormComponent implements OnInit {
   formDetails = this.fb.group(
     {
       className: ["", [Validators.required]],
+      niveau: [NIVEAUX_ECOLE['3EME'], [Validators.required]],
     })
 
 
@@ -30,12 +33,14 @@ export class ClassCreationFormComponent implements OnInit {
   }
 
   open(passwordContent: any, summaryContent: any) {
-    console.log("open with content", passwordContent)
+    this.formDetails.reset()
     this.modalService.open(passwordContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
-      this.classRooms.createClasse(this.formDetails.get("className")?.value).then(() => this.modalService.open(summaryContent))
+      this.classRooms.createClasse(this.formDetails.get("className")?.value, this.formDetails.get("niveau")?.value).then(() => this.modalService.open(summaryContent))
       
     }, (reason) => {
     });
   }
+
+  niveaux_array = Object.entries(NIVEAUX_ECOLE);
 }
