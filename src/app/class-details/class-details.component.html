@@ -11,18 +11,35 @@
           <p><span style="font-weight: bold;">Code:&nbsp;</span><span>{{classe.id}}</span></p>
           <p>
             <button type="button" class="btn btn-outline-secondary" (click)="collapse.toggle()"
-              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" [disabled]="classe.students.length ==0">
+              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"
+              [disabled]="classe.students.length ==0">
               étudiants ({{classe.students.length}})
-            </button>&nbsp;<button class="btn btn-link" (click)="addStudentsToClassroom(classe)" >Ajouter des élèves</button>
+            </button>&nbsp;<button class="btn btn-link" (click)="addStudentsToClassroom(classe)">Ajouter des
+              élèves</button>
           </p>
           <div class="mb-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
             <div class="card">
-              <ul class="list-group">
-                <li class="list-group-item d-flex align-items-center justify-content-between" *ngFor="let student of classe.students">
-                  <span>{{student.prenom}}&nbsp;{{student.nom}}&nbsp;<span class="fst-italic" >"{{student.username}}"</span> </span>  
-                  <button (click)="deleteStudentFromClassroom(classe, student)" class="btn btn-danger"><fa-icon [icon]="faTimes"></fa-icon></button>
-                </li>
-              </ul>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Prénom/Nom</th>
+                    <th scope="col">utilisateur</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let eleve of classe.students; index as i">
+                    <td>
+                      {{ eleve["prenom"] }}&nbsp;{{ eleve["nom"] }}
+                    </td>
+                    <td>{{ eleve["username"] }}</td>
+                    <th scope="row">
+                      <button (click)="deleteStudentFromClassroom(classe, eleve)" class="btn btn-danger">
+                        <fa-icon [icon]="faTimes"></fa-icon>
+                      </button>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <button disabled type="button" class="btn btn-primary mr-2">Modifier Classe</button>
