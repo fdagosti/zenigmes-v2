@@ -14,7 +14,7 @@
             <li class="nav-item" *ngIf="auth.getUser() | async as user; else loggedOutPanel">
                 <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
                     <button style="min-width: 100px;" class="btn btn-light-primary mr-2" id="logged-in-user"
-                        ngbDropdownToggle>{{user.prenom}} {{user.nom}}</button>
+                        ngbDropdownToggle>{{user.prenom}} {{user.nom}} {{user.enseignant? "(Enseignant)":"(Eleve)"}}</button>
                     <div ngbDropdownMenu aria-labelledby="logged-in-user">
                         <button (click)="isMenuCollapsed = true" routerLink="profile" ngbDropdownItem>Votre
                             profil</button>

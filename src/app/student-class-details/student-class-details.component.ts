@@ -3,14 +3,13 @@ import { map } from 'rxjs';
 import { ClassesService } from '../classes.service';
 
 @Component({
-  selector: 'app-class-details',
-  templateUrl: './class-details.component.html',
-  styleUrls: ['./class-details.component.scss']
+  selector: 'app-student-class-details',
+  templateUrl: './student-class-details.component.html',
+  styleUrls: ['./student-class-details.component.scss']
 })
-export class ClassDetailsComponent implements OnInit {
+export class StudentClassDetailsComponent implements OnInit {
 
-classGroups$;
-public isCollapsed = true;
+  classGroups$;
 
   constructor(private classRooms: ClassesService) { 
 
@@ -25,10 +24,6 @@ public isCollapsed = true;
   }
 
   ngOnInit(): void {
-  }
-
-  deleteClass(classroom:any){
-    this.classRooms.deleteClass(classroom)
   }
 
 }

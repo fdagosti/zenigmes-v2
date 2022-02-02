@@ -32,6 +32,7 @@ import { ClassDetailsComponent } from './class-details/class-details.component';
 import { ProfileDetailsComponent } from './profile-details/profile-details.component';
 import { ClassCreationFormComponent } from './class-creation-form/class-creation-form.component';
 import { CodeEntryComponent } from './code-entry/code-entry.component';
+import { StudentClassDetailsComponent } from './student-class-details/student-class-details.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { CodeEntryComponent } from './code-entry/code-entry.component';
     ClassDetailsComponent,
     ProfileDetailsComponent,
     ClassCreationFormComponent,
-    CodeEntryComponent
+    CodeEntryComponent,
+    StudentClassDetailsComponent
   ],
   imports: [
     BrowserModule,

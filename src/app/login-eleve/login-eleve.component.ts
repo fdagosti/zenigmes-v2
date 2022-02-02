@@ -30,7 +30,23 @@ export class LoginEleveComponent implements OnInit {
     const ussername = this.formDetails.get("username")?.value;
     const password = this.formDetails.get("password")?.value;
 
-    this.auth.login(ussername, password).then(() => this.router.navigate(["/"]))
+    this.auth.login(ussername, password).then(
+      () => this.router.navigate(["/"]),
+      (error) => this.error = error
+      )
+  }
+
+  ERROR_MSG: any = {
+    "auth/user-not-found": "Utilisateur non trouvé",
+    "auth/wrong-password": "Mauvais mot de passe"
+  }
+
+  getError(error: any) {
+    if (error.code) {
+      return this.ERROR_MSG[error.code]
+    } else {
+      return error
+    }
   }
 
 }

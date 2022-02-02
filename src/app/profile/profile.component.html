@@ -1,6 +1,6 @@
 <div class="container rounded bg-white mt-5 mb-5" *ngIf="auth.getUser() | async as user">
 
-    <pre>{{user | json}}</pre>
+    <!-- <pre>{{user | json}}</pre> -->
 
     <div class="row">
         <div class="col-md-3 border-right">
@@ -34,7 +34,7 @@
                             <app-profile-details></app-profile-details>
                         </ng-template>
                     </ngb-panel>
-                    <ngb-panel *ngIf="user.enseignant" id="class-panel">
+                    <ngb-panel id="class-panel">
                         <ng-template ngbPanelHeader let-opened="opened">
                             <div class="d-flex align-items-center justify-content-between">
                                 <button style="border-width: 0;font-weight: bold;" ngbPanelToggle
@@ -42,11 +42,12 @@
                                     <fa-icon [icon]="faSchool"></fa-icon> &nbsp; Mes classes &nbsp;
                                     <fa-icon [icon]="faChevronDown"></fa-icon>
                                 </button>
-                                <app-class-creation-form></app-class-creation-form>
+                                <app-class-creation-form *ngIf="user.enseignant" ></app-class-creation-form>
                             </div>
                         </ng-template>
                         <ng-template ngbPanelContent>
-                            <app-class-details></app-class-details>
+                            <app-student-class-details *ngIf="user.eleve"></app-student-class-details>
+                            <app-class-details *ngIf="user.enseignant"></app-class-details>
                         </ng-template>
                     </ngb-panel>
                 </ngb-accordion>

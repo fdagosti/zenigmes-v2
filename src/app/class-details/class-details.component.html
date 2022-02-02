@@ -1,16 +1,33 @@
 <div *ngIf="classGroups$ | async as classGroups">
-  <h4 *ngIf="classGroups.length>0">Classes sous votre responsabilités</h4>
-<div class="row" *ngFor="let group of classGroups">
-  <div class="col-lg-6 mb-3" *ngFor="let classe of group">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{classe.className}}</h5>
-        <p><span style="font-weight: bold;">Professeur:&nbsp;</span><span>{{classe.teacher}}</span></p>
-        <p><span style="font-weight: bold;">Code:&nbsp;</span><span>{{classe.id}}</span></p>
-        <button disabled type="button" class="btn btn-primary mr-2">Modifier Classe</button>
-        <button type="button" (click)="deleteClass(classe)" class="btn btn-danger">Effacer Classe</button>
+  <h4 *ngIf="classGroups.length==0">Pas de classes</h4>
+  <div class="row" *ngFor="let group of classGroups">
+    <div class="col-lg-6 mb-3" *ngFor="let classe of group">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{classe.className}}</h5>
+          <p><span
+              style="font-weight: bold;">Professeur:&nbsp;</span><span>{{classe.teacher?.prenom}}&nbsp;{{classe.teacher?.nom}}</span>
+          </p>
+          <p><span style="font-weight: bold;">Code:&nbsp;</span><span>{{classe.id}}</span></p>
+          <p>
+            <button type="button" class="btn btn-outline-secondary" (click)="collapse.toggle()"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" [disabled]="classe.students.length ==0">
+              étudiants ({{classe.students.length}})
+            </button>&nbsp;<button class="btn btn-link" disabled>Ajouter des élèves</button>
+          </p>
+          <div class="mb-3" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+            <div class="card">
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let student of classe.students">
+                  {{student.prenom}}&nbsp;{{student.nom}}&nbsp;<span class="fst-italic" >"{{student.username}}"</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button disabled type="button" class="btn btn-primary mr-2">Modifier Classe</button>
+          <button type="button" (click)="deleteClass(classe)" class="btn btn-danger">Effacer Classe</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

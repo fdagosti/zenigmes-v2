@@ -3,7 +3,7 @@ import { addDoc, collection, collectionData, doc, documentId, Firestore, getDoc,
 import { deleteDoc } from 'firebase/firestore';
 import { docData } from 'rxfire/firestore';
 import { DocumentData } from 'rxfire/firestore/interfaces';
-import { map, Observable, switchMap } from 'rxjs';
+import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { AuthService } from './shared/services/auth.service';
 
 @Injectable({
@@ -19,11 +19,25 @@ export class ClassesService {
     this.classes$ = user$.pipe(
       switchMap((user: any) => {
         const classRef = collection(this.afs, "classes")
-        const q = query(classRef, where("teacher", "==", user.uid));
-        const request$ = collectionData(q, { idField: "id" });
+        const enseignantQuery = query(classRef, where("teacher", "==", user.uid));
+        const eleveQuery = query(classRef, where("students", "array-contains", user.uid));
+        const request$ = collectionData(
+          user.enseignant ? enseignantQuery : eleveQuery,
+          { idField: "id" }
+        );
         return request$.pipe(
-          map(classRooms => {
-            return classRooms.map(classRoom => ({ ...classRoom, teacher: `${user.prenom} ${user.nom}` }))
+          switchMap(classRooms => {
+            if (classRooms.length == 0) return of([]);
+
+            return combineLatest(classRooms.map((classroom: any) => {
+              const students$ = classroom.students ? combineLatest(classroom.students?.map((student: any) => docData(doc(this.afs, "profiles-eleves", student)))) : of([])
+              
+              const teacher$ = docData(doc(this.afs, 'profiles', classroom.teacher))
+
+              return combineLatest([students$, teacher$]).pipe(
+                map(([students, teacher]: any) => ({ ...classroom, teacher, students })),
+              )
+            }))
           })
         )
       })
